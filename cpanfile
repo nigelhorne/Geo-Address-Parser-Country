@@ -17,6 +17,7 @@ on 'configure' => sub {
 };
 
 on 'test' => sub {
+	requires 'Test::DescribeMe';
 	requires 'Test::Most';
 };
 
