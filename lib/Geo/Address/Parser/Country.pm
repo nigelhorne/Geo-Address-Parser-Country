@@ -531,23 +531,30 @@ sub _append_country {
 sub _geonames_lookup {
 	my ($self, $place, $component, $warnings) = @_;
 
-	# Search using full place for best accuracy
 	my $result = $self->{geonames}->search(
-		q     => $place,
+		q	 => $place,
 		style => 'FULL',
 	);
 
-	# GeoNames returns an arrayref; take the first result
-	$result = ref($result) eq 'ARRAY' ? $result->[0] : $result;
-
-	# Extract country name if found and warn the caller
-	if(my $country = $result->{countryName}) {
-		push @{$warnings},
-			"$component: assuming country is $country";
-		return $country;
+	# Normalise to the first element if an arrayref was returned.
+	# Guard against a bare scalar (e.g. an error string) being returned.
+	if(ref($result) eq 'ARRAY') {
+		$result = $result->[0];
+	} elsif(!ref($result)) {
+		return;				  # Bug fix: scalar return, not a hashref
 	}
 
-	return;
+	# Must be a plain hashref at this point
+	return unless ref($result) eq 'HASH';
+
+	# Extract country name; must be a defined, non-ref, non-empty string
+	my $country = $result->{countryName};
+	return unless defined($country)   # Bug fix: undef countryName
+			   && !ref($country)	  # Bug fix: hashref countryName
+			   && length($country);   # Bug fix: empty-string countryName
+
+	push @{$warnings}, "$component: assuming country is $country";
+	return $country;
 }
 
 =head1 AUTHOR
