@@ -42,8 +42,10 @@ sub _make_us {
 # Build a minimal Locale::CA (English) stand-in
 sub _make_ca_en {
     return bless {
-        code2province  => { ON => 'Ontario', BC => 'British Columbia', QC => 'Quebec' },
-        province2code  => { ONTARIO => 'ON', 'BRITISH COLUMBIA' => 'BC', QUEBEC => 'QC' },
+        code2province  => { ON => 'Ontario', BC => 'British Columbia', QC => 'Quebec',
+                            NL => 'Newfoundland and Labrador', NU => 'Nunavut' },
+        province2code  => { ONTARIO => 'ON', 'BRITISH COLUMBIA' => 'BC', QUEBEC => 'QC',
+                            'NEWFOUNDLAND AND LABRADOR' => 'NL', NUNAVUT => 'NU' },
     }, 'Fake::CA';
 }
 
@@ -202,11 +204,14 @@ subtest 'resolve() step 1 - %DIRECT hashref with warning: Scot' => sub {
     like $res->{warnings}[0], qr/Scotland/, 'warning mentions Scotland';
 };
 
-subtest 'resolve() step 1 - %DIRECT hashref with warning: NL' => sub {
+subtest 'resolve() step 1 - %DIRECT: NL removed (was Netherlands, now Canada via Locale::CA)' => sub {
     my $r = _resolver();
-    my $res = $r->resolve(component => 'NL', place => 'Amsterdam, NL');
-    is $res->{country}, 'Netherlands', 'NL -> Netherlands';
-    like $res->{warnings}[0], qr/Netherlands/, 'warning mentions Netherlands';
+    # NL was removed from %DIRECT because it shadowed the Canadian province
+    # code for Newfoundland and Labrador.  It now falls through to the
+    # Locale::CA province-code path (step 4) and resolves to Canada.
+    my $res = $r->resolve(component => 'NL', place => 'City, NL');
+    is $res->{country}, 'Canada', 'NL -> Canada (via Locale::CA, not %DIRECT)';
+    like $res->{warnings}[0], qr/Canada/, 'warning mentions Canada';
 };
 
 subtest 'resolve() step 1 - %DIRECT hashref: Canadian province abbreviations' => sub {

@@ -45,10 +45,10 @@ my %DIRECT = (
 	# Dutch variants
 	'holland'                => 'Netherlands',
 	'the netherlands'        => 'Netherlands',
-	'nl'                     => {
-		country => 'Netherlands',
-		warning => 'assuming country is Netherlands',
-	},
+	# 'nl'                     => {	# Not a common abbreviation and clashes with Newfoundland in Canada
+		# country => 'Netherlands',
+		# warning => 'assuming country is Netherlands',
+	# },
 
 	# Slovenian historical name
 	'slovenija'              => 'Slovenia',
@@ -556,7 +556,32 @@ Nigel Horne C<< <njh@bandsman.co.uk> >>
 
 =head1 BUGS
 
-Please report bugs via the GitHub issue tracker:
+=over 4
+
+=item * The direct lookup table contains C<nl> as an abbreviation for the
+Netherlands.  This conflicts with C<NL>, the ISO 3166-2 code for the Canadian
+province of Newfoundland and Labrador.  Because the direct table is consulted
+before the C<Locale::CA> province-code path, passing C<component =E<gt> 'NL'>
+currently resolves to C<Netherlands> rather than C<Canada>.  The workaround
+is to pass the full province name (C<Newfoundland and Labrador>) or to ensure
+the place string includes an explicit C<Canada> suffix before calling
+C<resolve()>.
+
+=item * C<Geo::GeoNames> generates its query methods via C<AUTOLOAD>, so
+C<can('search')> returns false at the Perl level even though
+C<$geonames-E<gt>search(...)> works correctly at runtime.  The constructor
+schema currently validates the optional C<geonames> argument with
+C<can =E<gt> 'search'>, which rejects a real C<Geo::GeoNames> object.
+Until this is resolved, pass a wrapper object that defines C<search> as a
+named method, or subclass C<Geo::GeoNames> and add a stub:
+
+    package My::GeoNames;
+    use parent 'Geo::GeoNames';
+    sub search { my $self = shift; $self->SUPER::search(@_) }
+
+=back
+
+Please report additional bugs via the GitHub issue tracker:
 L<https://github.com/nigelhorne/Geo-Address-Parser-Country/issues>
 
 =head1 SEE ALSO

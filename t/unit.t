@@ -30,8 +30,10 @@ sub _make_us {
 
 sub _make_ca_en {
     return bless {
-        code2province => { ON => 'Ontario', BC => 'British Columbia' },
-        province2code => { ONTARIO => 'ON', 'BRITISH COLUMBIA' => 'BC' },
+        code2province => { ON => 'Ontario', BC => 'British Columbia',
+                           NL => 'Newfoundland and Labrador', NU => 'Nunavut' },
+        province2code => { ONTARIO => 'ON', 'BRITISH COLUMBIA' => 'BC',
+                           'NEWFOUNDLAND AND LABRADOR' => 'NL', NUNAVUT => 'NU' },
     }, 'Unit::Stub::CA';
 }
 
@@ -320,12 +322,15 @@ subtest 'resolve() - Nova Scotia emits a missing-country warning' => sub {
     like $res->{warnings}[0], qr/Canada.*missing/i,  'warning notes missing Canada';
 };
 
-subtest 'resolve() - NL (Netherlands abbreviation) emits an assuming warning' => sub {
+subtest 'resolve() - NL resolves to Canada (Newfoundland and Labrador, not Netherlands)' => sub {
     plan tests => 2;
     my $r   = _resolver();
-    my $res = $r->resolve(component => 'NL', place => 'Amsterdam, NL');
-    is  $res->{country}, 'Netherlands',       'NL -> Netherlands';
-    like $res->{warnings}[0], qr/Netherlands/, 'warning mentions Netherlands';
+    # NL was removed from %DIRECT where it mapped to Netherlands, because
+    # that shadowed the Canadian province code for Newfoundland and Labrador.
+    # It now resolves via Locale::CA to Canada.
+    my $res = $r->resolve(component => 'NL', place => 'St. Johns, NL');
+    is  $res->{country}, 'Canada',  'NL -> Canada';
+    like $res->{warnings}[0], qr/Canada/, 'warning mentions Canada';
 };
 
 # ---------------------------------------------------------------------------

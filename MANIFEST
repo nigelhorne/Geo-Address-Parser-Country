@@ -6,4 +6,5 @@ MANIFEST			This list of files
 README.md
 t/00-load.t
 t/function.t
+t/integration.t
 t/unit.t
