@@ -205,11 +205,31 @@ the appropriate country string (`", USA"`, `", Canada"`,
 
 # AUTHOR
 
-Nigel Horne `<njh@bandsman.co.uk>`
+Nigel Horne `<njh@nigelhorne.com>`
 
 # BUGS
 
-Please report bugs via the GitHub issue tracker:
+- The direct lookup table contains `nl` as an abbreviation for the
+Netherlands.  This conflicts with `NL`, the ISO 3166-2 code for the Canadian
+province of Newfoundland and Labrador.  Because the direct table is consulted
+before the `Locale::CA` province-code path, passing `component => 'NL'`
+currently resolves to `Netherlands` rather than `Canada`.  The workaround
+is to pass the full province name (`Newfoundland and Labrador`) or to ensure
+the place string includes an explicit `Canada` suffix before calling
+`resolve()`.
+- `Geo::GeoNames` generates its query methods via `AUTOLOAD`, so
+`can('search')` returns false at the Perl level even though
+`$geonames->search(...)` works correctly at runtime.  The constructor
+schema currently validates the optional `geonames` argument with
+`can => 'search'`, which rejects a real `Geo::GeoNames` object.
+Until this is resolved, pass a wrapper object that defines `search` as a
+named method, or subclass `Geo::GeoNames` and add a stub:
+
+        package My::GeoNames;
+        use parent 'Geo::GeoNames';
+        sub search { my $self = shift; $self->SUPER::search(@_) }
+
+Please report additional bugs via the GitHub issue tracker:
 [https://github.com/nigelhorne/Geo-Address-Parser-Country/issues](https://github.com/nigelhorne/Geo-Address-Parser-Country/issues)
 
 # SEE ALSO
