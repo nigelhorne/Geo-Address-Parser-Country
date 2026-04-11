@@ -77,13 +77,6 @@ sub _make_au {
 	}, 'Edge::Stub::AU';
 }
 
-BEGIN {
-	no strict 'refs';
-	for my $pkg (qw(Edge::Stub::US Edge::Stub::CA Edge::Stub::AU)) {
-		*{"${pkg}::new"} = sub { shift };
-	}
-}
-
 sub _resolver {
 	return Geo::Address::Parser::Country->new({
 		us    => _make_us(),
@@ -583,7 +576,6 @@ subtest 'locale stub: code2state returns undef for a key — does not die' => su
 		code2state => { TX => undef },
 		state2code => {},
 	}, 'Edge::Broken::US';
-	{ no strict 'refs'; *{'Edge::Broken::US::new'} = sub { shift } }
 
 	my $r = Geo::Address::Parser::Country->new({
 		us    => $broken_us,
@@ -602,12 +594,6 @@ subtest 'locale stub: completely empty locale objects — does not die' => sub {
 	my $empty_us = bless { code2state    => {}, state2code    => {} }, 'Edge::Empty::US';
 	my $empty_ca = bless { code2province => {}, province2code => {} }, 'Edge::Empty::CA';
 	my $empty_au = bless { code2state    => {}, state2code    => {} }, 'Edge::Empty::AU';
-	{
-		no strict 'refs';
-		*{'Edge::Empty::US::new'} = sub { shift };
-		*{'Edge::Empty::CA::new'} = sub { shift };
-		*{'Edge::Empty::AU::new'} = sub { shift };
-	}
 
 	my $r = Geo::Address::Parser::Country->new({
 		us    => $empty_us,

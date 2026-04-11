@@ -66,7 +66,6 @@ if($have_locale_us) {
         code2state => { TX => 'Texas', CA => 'California', NY => 'New York' },
         state2code => { TEXAS => 'TX', CALIFORNIA => 'CA', 'NEW YORK' => 'NY' },
     }, 'Int::Stub::US';
-    { no strict 'refs'; *{'Int::Stub::US::new'} = sub { shift } }
 }
 
 if($have_locale_ca) {
@@ -81,7 +80,6 @@ if($have_locale_ca) {
         code2province => { QC => 'Quebec' },
         province2code => { QUEBEC => 'QC' },
     }, 'Int::Stub::CA';
-    { no strict 'refs'; *{'Int::Stub::CA::new'} = sub { shift } }
 }
 
 if($have_locale_au) {
@@ -91,7 +89,6 @@ if($have_locale_au) {
         code2state => { NSW => 'New South Wales', VIC => 'Victoria', WA => 'Western Australia' },
         state2code => { 'NEW SOUTH WALES' => 'NSW', VICTORIA => 'VIC', 'WESTERN AUSTRALIA' => 'WA' },
     }, 'Int::Stub::AU';
-    { no strict 'refs'; *{'Int::Stub::AU::new'} = sub { shift } }
 }
 
 # ---------------------------------------------------------------------------

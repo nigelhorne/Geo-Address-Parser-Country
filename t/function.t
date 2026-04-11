@@ -85,15 +85,6 @@ sub _resolver {
 }
 
 # ---------------------------------------------------------------------------
-# Convenience: unwrap the Fake::* classes so Params::Validate::Strict
-# accepts them for 'can => new'.  We add a no-op new() to each package.
-# ---------------------------------------------------------------------------
-{
-    no strict 'refs';
-    for my $pkg (qw(Fake::US Fake::CA Fake::AU)) {
-        *{"${pkg}::new"} = sub { shift };
-    }
-}
 
 # ---------------------------------------------------------------------------
 # 1. new() — constructor smoke test

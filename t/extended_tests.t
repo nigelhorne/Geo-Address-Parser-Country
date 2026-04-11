@@ -20,20 +20,10 @@ use Geo::Address::Parser::Country;
 # Stub infrastructure
 # ---------------------------------------------------------------------------
 #
-# Where a gap requires a specific locale configuration that the standard
-# stubs don't provide, a bespoke stub is built inline.  All stubs satisfy
-# 'can => new' via the BEGIN block below.
-
-BEGIN {
-	no strict 'refs';
-	for my $pkg (qw(
-		Ext::US::Std   Ext::US::Empty
-		Ext::CA::En    Ext::CA::Fr    Ext::CA::FrOnly  Ext::CA::Empty
-		Ext::AU::Std   Ext::AU::Three Ext::AU::Empty
-	)) {
-		*{"${pkg}::new"} = sub { shift };
-	}
-}
+# The constructor schema no longer requires can('new') on locale objects
+# (that check was removed from $NEW_SCHEMA as it was incorrect — the
+# objects are used as data containers, not factories).  Stubs are plain
+# blessed hashrefs with no special method installation needed.
 
 # Standard US stub used by most subtests
 sub _us {
@@ -277,7 +267,6 @@ subtest 'step 5: French province full name in ca_fr province2code only' => sub {
 		}, 'Ext::CA::FrUC'),
 		au    => _au_empty(),
 	);
-	{ no strict 'refs'; *{'Ext::CA::FrUC::new'} = sub { shift } }
 
 	my $res = $r->resolve(component => "Qu\x{e9}bec", place => "Montr\x{e9}al, Qu\x{e9}bec");
 	is  $res->{country}, 'Canada',        'French province name resolves to Canada';
@@ -461,7 +450,6 @@ subtest 'step 5: Québec French province full name via ca_fr province2code' => s
 			province2code => { "QU\x{e9}BEC" => 'QC' },
 		}, 'Ext::CA::FrUC2'),
 	);
-	{ no strict 'refs'; *{'Ext::CA::FrUC2::new'} = sub { shift } }
 
 	my $res = $r->resolve(component => "Qu\x{e9}bec", place => "Montr\x{e9}al, Qu\x{e9}bec");
 	is  $res->{country}, 'Canada',    "Qu\x{e9}bec (French name) -> Canada";
@@ -516,13 +504,11 @@ subtest 'LCSAJ: two-letter code misses US and CA, hits AU (step 6)' => sub {
 		code2state => { TX => 'Texas' },
 		state2code => { TEXAS => 'TX' },
 	}, 'Ext::US::NoWA';
-	{ no strict 'refs'; *{'Ext::US::NoWA::new'} = sub { shift } }
 
 	my $au_wa = bless {
 		code2state => { WA => 'Western Australia' },
 		state2code => { 'WESTERN AUSTRALIA' => 'WA' },
 	}, 'Ext::AU::WA';
-	{ no strict 'refs'; *{'Ext::AU::WA::new'} = sub { shift } }
 
 	my $r = _resolver_with(us => $us_no_wa, au => $au_wa);
 	my $res = $r->resolve(component => 'WA', place => 'Perth, WA');
