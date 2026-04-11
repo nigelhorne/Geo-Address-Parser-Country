@@ -5,7 +5,7 @@ canonical country name
 
 # VERSION
 
-Version 0.01
+Version 0.02
 
 # SYNOPSIS
 
@@ -207,6 +207,20 @@ the appropriate country string (`", USA"`, `", Canada"`,
 
 Nigel Horne `<njh@nigelhorne.com>`
 
+# REPOSITORY
+
+[https://github.com/nigelhorne/Geo-Address-Parser-Country](https://github.com/nigelhorne/Geo-Address-Parser-Country)
+
+# SUPPORT
+
+This module is provided as-is without any warranty.
+
+Please report any bugs or feature requests to `bug-geo-address-parser at rt.cpan.org`,
+or through the web interface at
+[http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Geo-Address-Parser-Country](http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Geo-Address-Parser-Country).
+I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
 # BUGS
 
 - The direct lookup table contains `nl` as an abbreviation for the
@@ -244,8 +258,15 @@ Please report additional bugs via the GitHub issue tracker:
 - [Params::Validate::Strict](https://metacpan.org/pod/Params%3A%3AValidate%3A%3AStrict)
 - [Return::Set](https://metacpan.org/pod/Return%3A%3ASet)
 
-# LICENSE AND COPYRIGHT
+# LICENCE AND COPYRIGHT
 
 Copyright 2026 Nigel Horne.
 
-This program is released under the following licence: GPL2
+Usage is subject to licence terms.
+
+The licence terms of this software are as follows:
+
+- Personal single user, single computer use: GPL2
+- All other users (including Commercial, Charity, Educational, Government)
+  must apply in writing for a licence for use from Nigel Horne at the
+  above e-mail.

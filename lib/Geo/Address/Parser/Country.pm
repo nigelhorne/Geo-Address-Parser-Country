@@ -10,7 +10,7 @@ use Params::Get;
 use Params::Validate::Strict qw(validate_strict);
 use Return::Set qw(set_return);
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Direct component-to-country mappings, keyed on lowercase component.
 # Values are either a plain country string, or a hashref with
@@ -114,7 +114,7 @@ canonical country name
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =head1 SYNOPSIS
 
@@ -564,6 +564,20 @@ sub _geonames_lookup {
 
 Nigel Horne C<< <njh@nigelhorne.com> >>
 
+=head1 REPOSITORY
+
+L<https://github.com/nigelhorne/Geo-Address-Parser-Country>
+
+=head1 SUPPORT
+
+This module is provided as-is without any warranty.
+
+Please report any bugs or feature requests to C<bug-geo-address-parser at rt.cpan.org>,
+or through the web interface at
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Geo-Address-Parser-Country>.
+I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
 =head1 BUGS
 
 =over 4
@@ -618,11 +632,23 @@ L<https://github.com/nigelhorne/Geo-Address-Parser-Country/issues>
 
 =back
 
-=head1 LICENSE AND COPYRIGHT
+=head1 LICENCE AND COPYRIGHT
 
 Copyright 2026 Nigel Horne.
 
-This program is released under the following licence: GPL2
+Usage is subject to licence terms.
+
+The licence terms of this software are as follows:
+
+=over 4
+
+=item * Personal single user, single computer use: GPL2
+
+=item * All other users (including Commercial, Charity, Educational, Government)
+  must apply in writing for a licence for use from Nigel Horne at the
+  above e-mail.
+
+=back
 
 =cut
 
