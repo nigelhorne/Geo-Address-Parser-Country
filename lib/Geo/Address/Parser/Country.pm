@@ -5,6 +5,7 @@ use warnings;
 
 use Carp qw(croak carp);
 use Locale::Object::Country;
+use Object::Configure;
 use Params::Get;
 use Params::Validate::Strict qw(validate_strict);
 use Return::Set qw(set_return);
@@ -269,6 +270,8 @@ sub new {
 		input       => $args,
 		schema      => $NEW_SCHEMA,
 	});
+
+	$args = Object::Configure::configure($class, $args);
 
 	# Build and return the blessed object
 	return bless {

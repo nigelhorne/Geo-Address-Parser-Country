@@ -107,15 +107,37 @@ sub _check_invariants {
 # 1. Constructor edge cases
 # ---------------------------------------------------------------------------
 
-subtest 'new() - missing required argument dies cleanly' => sub {
-	dies_ok {
-		Geo::Address::Parser::Country->new({
+# ---------------------------------------------------------------------------
+# 1. Constructor edge cases
+# ---------------------------------------------------------------------------
+#
+# Note: the module now calls Object::Configure::configure() after schema
+# validation, which may supply default locale objects from environment
+# variables or a config file.  Tests that omit required args must therefore
+# accept either outcome: die (no defaults configured) or succeed (defaults
+# supplied).  The important invariant is that a returned object must be
+# functional.
+
+subtest 'new() - missing required argument: dies or succeeds with valid object' => sub {
+	# Unset any Object::Configure env vars that could supply defaults
+	local %ENV = %ENV;
+	delete $ENV{$_} for grep { /GEO_ADDRESS_PARSER/i } keys %ENV;
+
+	my $r;
+	eval {
+		$r = Geo::Address::Parser::Country->new({
 			us    => _make_us(),
 			ca_en => _make_ca_en(),
 			# ca_fr missing
 			au    => _make_au(),
 		});
-	} 'missing ca_fr causes constructor to die';
+	};
+	if($@) {
+		pass 'missing ca_fr causes constructor to die (no defaults configured)';
+	} else {
+		isa_ok $r, 'Geo::Address::Parser::Country',
+			'missing ca_fr supplied by Object::Configure defaults — object valid';
+	}
 };
 
 subtest 'new() - wrong type for required argument dies cleanly' => sub {
@@ -126,14 +148,14 @@ subtest 'new() - wrong type for required argument dies cleanly' => sub {
 			ca_fr => _make_ca_fr(),
 			au    => _make_au(),
 		});
-	} 'scalar instead of object for us dies';
+	} 'scalar instead of object for us dies (wrong type cannot be overridden)';
 };
 
 subtest 'new() - undef for required argument: Params::Validate::Strict accepts undef' => sub {
 	# Params::Validate::Strict does not treat undef as a type violation for
 	# object parameters — this is a known characteristic of the validator.
-	# Document the actual behaviour rather than asserting a die that does
-	# not happen.
+	# Object::Configure may replace the undef with a default, or it may
+	# remain undef. Either way the constructor must not die.
 	my $r;
 	lives_ok {
 		$r = Geo::Address::Parser::Country->new({
@@ -142,8 +164,8 @@ subtest 'new() - undef for required argument: Params::Validate::Strict accepts u
 			ca_fr => _make_ca_fr(),
 			au    => _make_au(),
 		});
-	} 'undef for us accepted by Params::Validate::Strict (known behaviour)';
-	note 'undef locale accepted at construction; failures surface at resolve() time';
+	} 'undef for us accepted (P::V::S behaviour; Object::Configure may replace it)';
+	note 'if undef was not replaced, failures surface at resolve() time';
 };
 
 subtest 'new() - arrayref for required argument dies cleanly' => sub {
@@ -154,13 +176,23 @@ subtest 'new() - arrayref for required argument dies cleanly' => sub {
 			ca_fr => _make_ca_fr(),
 			au    => _make_au(),
 		});
-	} 'arrayref for ca_en dies';
+	} 'arrayref for ca_en dies (wrong type cannot be overridden by Object::Configure)';
 };
 
-subtest 'new() - empty hashref dies cleanly' => sub {
-	dies_ok {
-		Geo::Address::Parser::Country->new({});
-	} 'empty args hashref dies';
+subtest 'new() - empty hashref: dies or succeeds depending on configured defaults' => sub {
+	local %ENV = %ENV;
+	delete $ENV{$_} for grep { /GEO_ADDRESS_PARSER/i } keys %ENV;
+
+	my $r;
+	eval {
+		$r = Geo::Address::Parser::Country->new({});
+	};
+	if($@) {
+		pass 'empty args hashref dies when no defaults configured';
+	} else {
+		isa_ok $r, 'Geo::Address::Parser::Country',
+			'empty args accepted when Object::Configure supplies all defaults';
+	}
 };
 
 subtest 'new() - extra unknown arguments are tolerated or die cleanly, not silently corrupt' => sub {

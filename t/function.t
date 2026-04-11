@@ -4,22 +4,22 @@
 #
 # Covers every public method and every internal helper, including all
 # branches in resolve() (steps 1-9) and _append_country().
-# Uses Test::Mockingbird to stub locale objects and Geo::GeoNames so
-# the suite has no external dependencies.
+# Uses stub locale objects (plain blessed hashrefs — no can('new')
+# required since that schema check was removed).
 
 use strict;
 use warnings;
 
-use Test::More;
+use Test::Most;
 use Test::Exception;
 use Test::Mockingbird;
 
-use Geo::Address::Parser::Country;
+use_ok('Geo::Address::Parser::Country');
+use_ok('Object::Configure');
 
 # ---------------------------------------------------------------------------
-# Helpers: build lightweight locale stubs that satisfy the 'can => new'
-# schema checks performed by Params::Validate::Strict.  Each stub is a
-# blessed hashref with the lookup tables the production code accesses.
+# Helpers: build lightweight locale stubs.  Each stub is a blessed hashref
+# with the lookup tables the production code accesses directly.
 # ---------------------------------------------------------------------------
 
 # Build a minimal Locale::US stand-in
