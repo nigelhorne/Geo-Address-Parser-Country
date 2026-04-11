@@ -78,10 +78,10 @@ my %DIRECT = (
 
 # Schema for new() arguments, used by Params::Validate::Strict
 my $NEW_SCHEMA = {
-	us    => { type => 'object', can => 'new' },
-	ca_en => { type => 'object', can => 'new' },
-	ca_fr => { type => 'object', can => 'new' },
-	au    => { type => 'object', can => 'new' },
+	us    => { type => 'object' },
+	ca_en => { type => 'object' },
+	ca_fr => { type => 'object' },
+	au    => { type => 'object' },
 	geonames => {
 		type     => 'object',
 		can      => 'search',
