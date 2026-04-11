@@ -1,4 +1,4 @@
-spackage Geo::Address::Parser::Country;
+package Geo::Address::Parser::Country;
 
 use strict;
 use warnings;
