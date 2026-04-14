@@ -612,6 +612,8 @@ L<https://github.com/nigelhorne/Geo-Address-Parser-Country/issues>
 
 =over 4
 
+=item * L<Test Dashboard|https://nigelhorne.github.io/Geo-Address-Parser-Country/coverage/>
+
 =item * L<Geo::Address::Parser>
 
 =item * L<Locale::US>
