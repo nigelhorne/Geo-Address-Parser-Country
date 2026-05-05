@@ -153,11 +153,306 @@
 
 <tbody>
 
-<tr class="high"><td><a href="lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/2d9788774e32fc578324254728475af8e41e9d7a/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points=""></canvas></td><td>100.0</td><td>97.1</td><td>90.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">97.9%</span></td><td class="neutral" title="No previous data">&#9679;</td></tr>
+<tr class="high"><td><a href="lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/1b3df7d1467244261a0d329d3dcb048e522f3768/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points="97.9"></canvas></td><td>100.0</td><td>97.1</td><td>90.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">97.9%</span></td><td class="neutral" title="No previous data">&#9679;</td></tr>
 <tr class="summary-row nosort"><td colspan="2"><strong>Summary</strong></td><td colspan="2">1 files</td><td colspan="3">Avg: 97%, Low: 0</td></tr>
 <tr class="high nosort"><td><strong>Total</strong></td><td>100.0</td><td>97.1</td><td>90.5</td><td>100.0</td><td colspan="2"><strong>97.9</strong></td></tr>
 </tbody></table>
-<p><i>No history to show coverage trend</i></p>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">
+	<div>
+		<h2>Coverage Trend</h2>
+		<label>
+			<input type="checkbox" id="toggleTrend" checked>
+			Show regression trend
+		</label>
+		<div>
+		</div>
+	</div>
+	<div id="zoomControls" style="margin-top:8px;">
+		<input type="button" value="Refresh" onClick="refresh(this)">
+		<button id="resetZoomBtn" type="button">Reset Zoom</button>
+	</div>
+</div>
+<canvas id="coverageTrend" width="600" height="300"></canvas>
+<!-- Zoom controls for the trend chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Add chartjs-plugin-zoom (required for wheel/pinch/drag zoom & pan) -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom\@2.1.1/dist/chartjs-plugin-zoom.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+<script>
+function linearRegression(data) {
+	const xs = data.map(p => new Date(p.x).getTime());
+	const ys = data.map(p => p.y);
+	const n = xs.length;
+
+	const sumX = xs.reduce((a, b) => a + b, 0);
+	const sumY = ys.reduce((a, b) => a + b, 0);
+	const sumXY = xs.reduce((acc, val, i) => acc + val * ys[i], 0);
+	const sumX2 = xs.reduce((acc, val) => acc + val * val, 0);
+
+	if(n < 2 || (n * sumX2 - sumX * sumX) === 0) {
+		return [];
+	}
+	const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+	const intercept = (sumY - slope * sumX) / n;
+
+	return xs.map(x => ({
+		x: new Date(x).toISOString(),
+		y: slope * x + intercept
+	}));
+}
+
+
+const dataPoints = [ { x: "2026-05-05T01:58:06+00:00", y: 97.9166666666667, delta: 0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/37e88e0b05ba325cb6351b8dd07865c4546bfa8f", label: "2026-05-05T01:58:06+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 2d97887)" } ];
+const regressionPoints = linearRegression(dataPoints);
+// Try to register the zoom plugin (handles different UMD builds)
+(function registerZoomPlugin(){
+	try {
+		const candidates = ['chartjsPluginZoom','ChartZoom','zoomPlugin','chartjs_plugin_zoom','ChartjsPluginZoom','chartjsPluginZoom'];
+		for(const name of candidates) {
+			if(window[name]) {
+				try { Chart.register(window[name]); console.log('Registered zoom plugin:', name); return; } catch(e) { console.warn('zoom register failed for', name, e); }
+			}
+		}
+		// Some CDN builds auto-register the plugin; if nothing found that's OK (feature disabled).
+	} catch(e) {
+		console.warn('registerZoomPlugin error', e);
+	}
+})();
+const ctx = document.getElementById('coverageTrend').getContext('2d');
+const chart = new Chart(ctx, {
+	type: 'line',
+	data: {
+		datasets: [{
+			label: 'Total Coverage (%)',
+			data: dataPoints,
+			borderColor: 'green',
+			backgroundColor: 'rgba(0,128,0,0.1)',
+			pointRadius: 5,
+			pointHoverRadius: 7,
+			pointStyle: 'circle',
+			fill: false,
+			tension: 0.3,
+			pointBackgroundColor: function(context) {
+				return context.raw.pointBackgroundColor || 'gray';
+			}
+		}, {
+			label: 'Regression Line',
+			data: regressionPoints,
+			borderColor: 'blue',
+			borderDash: [5, 5],
+			pointRadius: 0,
+			fill: false,
+			tension: 0.0
+		}]
+	}, options: {
+		scales: {
+			x: {
+				type: 'time',
+				time: {
+					tooltipFormat: 'MMM d, yyyy HH:mm:ss',
+					unit: 'day'
+				},
+				title: { display: true, text: 'Commit Date' }
+			},
+			y: { beginAtZero: true, max: 100, title: { display: true, text: 'Coverage (%)' } }
+		}, plugins: {
+			legend: {
+				display: true,
+				position: 'top', // You can also use 'bottom', 'left', or 'right'
+				labels: {
+					boxWidth: 12,
+					padding: 10,
+					font: {
+						size: 12,
+						weight: 'bold'
+					}
+				}
+			}, tooltip: {
+				callbacks: {
+					label: function(context) {
+						const raw = context.raw;
+						const coverage = raw.y.toFixed(1);
+						const delta = raw.delta?.toFixed(1) ?? '0.0';
+						const sign = delta > 0 ? '+' : delta < 0 ? '-' : '±';
+						// const baseLine = `${raw.label}: ${coverage}% (${sign}${Math.abs(delta)}%)`;
+						const baseLine = `${coverage}% (${sign}${Math.abs(delta)}%)`;
+						const commentLine = raw.comment ? raw.comment : null;
+						return commentLine ? [baseLine, commentLine] : [baseLine];
+					}
+				}
+			} , zoom: {	// Enable zoom & pan on the x-axis for the trend chart
+				pan: {
+					enabled: true,
+					mode: 'x'
+				}, zoom: {
+					wheel: {
+						enabled: true
+					}, pinch: {
+						enabled: true
+					}, mode: 'x'
+				}
+			}
+		}, onClick: (e) => {
+			const points = chart.getElementsAtEventForMode(e, 'nearest', { intersect: true }, true);
+			if(points.length) {
+				const url = chart.data.datasets[0].data[points[0].index].url;
+				window.open(url, '_blank');
+			}
+		}
+	}
+});
+
+document.getElementById('toggleTrend').addEventListener('change', function(e) {
+	const show = e.target.checked;
+	const trendDataset = chart.data.datasets.find(ds => ds.label === 'Regression Line');
+	trendDataset.hidden = !show;
+	chart.update();
+});
+
+// Reset Zoom button handler (calls plugin API if available)
+const resetBtn = document.getElementById('resetZoomBtn');
+if(resetBtn) {
+	resetBtn.addEventListener('click', function() {
+		try {
+			if(chart && typeof chart.resetZoom === 'function') {
+				chart.resetZoom();
+			} else {
+				console.warn('resetZoom not available; zoom plugin may not be registered.');
+			}
+		} catch (e) {
+			console.warn('resetZoom call failed', e);
+		}
+	});
+}
+
+function sortTable(th, colIndex) {
+	const table = th.closest("table");
+	if(!table || !table.tBodies.length) return;
+
+	const tbody = table.tBodies[0];
+	const rows = Array.from(tbody.rows);
+
+	const prevCol = table.getAttribute("data-sort-col");
+	const prevOrder = table.getAttribute("data-sort-order") || "desc";
+	const asc = (prevCol != colIndex) ? true : (prevOrder === "desc");
+
+	const isNumeric = colIndex === 0; // Date column
+
+	const normalRows = rows.filter(r => !r.classList.contains("nosort"));
+	const fixedRows = rows.filter(r => r.classList.contains("nosort"));
+
+	normalRows.sort((a, b) => {
+		let x = a.cells[colIndex]?.innerText.trim() || "";
+		let y = b.cells[colIndex]?.innerText.trim() || "";
+
+		if(isNumeric) {
+			x = Date.parse(x) || 0;
+			y = Date.parse(y) || 0;
+		} else {
+			x = x.toLowerCase();
+			y = y.toLowerCase();
+		}
+
+		if(x < y) return asc ? -1 : 1;
+		if(x > y) return asc ? 1 : -1;
+		return 0;
+	});
+
+	normalRows.forEach(r => tbody.appendChild(r));
+	fixedRows.forEach(r => tbody.appendChild(r));
+
+	// Update arrows
+	const headers = table.tHead.rows[0].cells;
+	for(let i = 0; i < headers.length; i++) {
+		const arrow = headers[i].querySelector(".arrow");
+		if(!arrow) continue;
+
+		if(i === colIndex) {
+			arrow.textContent = asc ? "▲" : "▼";
+			arrow.classList.add("active");
+		} else {
+			arrow.textContent = "▲";
+			arrow.classList.remove("active");
+		}
+	}
+
+	table.setAttribute("data-sort-col", colIndex);
+	table.setAttribute("data-sort-order", asc ? "asc" : "desc");
+}
+
+
+// Initial display.
+// The table has been set up sorted in ascending order on the filename; reflect that in the GUI
+document.addEventListener("DOMContentLoaded", () => {
+	const table = document.querySelector("table");
+	if(!table) return;
+
+	const headers = table.tHead.rows[0].cells;
+	for(let i = 0; i < headers.length; i++) {
+		const arrow = headers[i].querySelector(".arrow");
+		if(!arrow) continue;
+
+		if(i === 0) {
+			arrow.textContent = "▲";
+			arrow.classList.add("active");
+		} else {
+			arrow.textContent = "▲";
+			arrow.classList.remove("active");
+		}
+	}
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+	document.querySelectorAll("canvas.sparkline").forEach(canvas => {
+		const raw = canvas.getAttribute("data-points");
+		if(!raw) return;
+		const points = raw.split(",").map(v => parseFloat(v));
+
+		new Chart(canvas.getContext("2d"), {
+			type: 'line',
+			data: {
+				labels: points.map((_, i) => i+1),
+				datasets: [{
+					data: points,
+					borderColor: points.length > 1 && points[points.length-1] >= points[0] ? "green" : "red",
+					borderWidth: 1,
+					fill: false,
+					tension: 0.3,
+					pointRadius: 0
+				}]
+			}, options: {
+				responsive: false,
+				maintainAspectRatio: false,
+				elements: { line: { borderJoinStyle: 'round' } },
+				plugins: {
+					legend: { display: false },
+					tooltip: { enabled: false },
+					zoom: {	// Enable zoom and pan
+						pan: {
+							enabled: true,
+							mode: 'x',
+						}, zoom: {
+							wheel: {
+								enabled: true,
+							},
+							pinch: {
+								enabled: true
+							},
+							mode: 'x',
+						}
+					}
+				}, scales: { x: { display: false }, y: { display: false } }
+			}
+		});
+	});
+});
+
+function refresh(){
+	window.location.reload("Refresh")
+}
+</script>
+
+<p><center>Use mouse wheel or pinch to zoom; drag to pan</center></p>
 <p>No issues active on <a href="https://rt.cpan.org/Public/Dist/Display.html?Name=Geo-Address-Parser-Country">RT</a></p>
 <h2>CPAN Testers Failures for Geo-Address-Parser-Country 0.02</h2>
 <h3>Failure Summary (all reports)</h3>
@@ -285,68 +580,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <tr class="cpan-fail"><td>2026-04-13T05:31:00Z</td><td>freebsd</td><td>5.18.2</td><td>Slaven Rezi&#x107;</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/17cfa9c8-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/a05f3022-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9c2650f8-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/794c026c-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>freebsd</td><td>5.18.4</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8981fa42-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.22.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8f23a1f8-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-13T05:29:00Z</td><td>freebsd</td><td>5.16.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/c08e464c-36f9-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-14T12:24:00Z</td><td>linux</td><td>5.34.0</td><td>Nigel Horne</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/ebaa0a06-37fc-11f1-acb9-eb813c3f718f" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.22.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/93b20e4e-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-11T20:54:00Z</td><td>linux</td><td>5.30.2</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9e245cac-35e8-11f1-9b01-e88bfb5f8fec" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.28.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/a1b8f1ce-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-13T05:32:00Z</td><td>freebsd</td><td>5.14.4</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/28a88ba2-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
 <tr class="cpan-fail"><td>2026-04-15T12:16:00Z</td><td>linux</td><td>5.32.1</td><td>David Solimano</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/f57437a0-38c4-11f1-a6aa-f00074013fe5" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.24.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/908622a0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9ac1c86e-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-13T20:49:00Z</td><td>MSWin32</td><td>5.42.0</td><td>gregor herrmann</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/76cb672f-6c6d-1014-8029-c939dadd985e" target="_blank">View</a></td></tr>
 <tr class="cpan-fail"><td>2026-04-11T20:57:00Z</td><td>linux</td><td>5.28.1</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/0ab96fec-35e9-11f1-8e62-db655bf8665a" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.22.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9efe0258-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>freebsd</td><td>5.22.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8cb580b2-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-11T20:58:00Z</td><td>linux</td><td>5.28.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/31a83e26-35e9-11f1-a698-b19848aeaca0" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>linux</td><td>5.38.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/99551684-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-13T05:31:00Z</td><td>freebsd</td><td>5.20.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/0299b90e-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.3</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9ac1c86e-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
 <tr class="cpan-na"><td>2026-04-12T18:21:00Z</td><td>freebsd</td><td>5.8.9</td><td>Slaven Rezi&#x107;</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/6bdf4694-369c-11f1-8777-3a386e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-14T12:24:00Z</td><td>linux</td><td>5.34.0</td><td>Nigel Horne</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/ebaa0a06-37fc-11f1-acb9-eb813c3f718f" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>freebsd</td><td>5.18.4</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8981fa42-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.1</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9c2650f8-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.24.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/979ab9c0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.28.1</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/a1b8f1ce-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-13T05:31:00Z</td><td>freebsd</td><td>5.20.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/0299b90e-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.22.1</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9efe0258-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.36.3</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8323920a-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.22.2</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8f23a1f8-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.20.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8ae7709c-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-13T05:29:00Z</td><td>freebsd</td><td>5.16.3</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/c08e464c-36f9-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>freebsd</td><td>5.22.3</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8cb580b2-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-13T05:34:00Z</td><td>freebsd</td><td>5.10.1</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/68d1f59c-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.24.1</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/908622a0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>linux</td><td>5.38.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/99551684-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-11T21:00:00Z</td><td>linux</td><td>5.20.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8263f6c0-35e9-11f1-b5ef-a4fafe07f46c" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-13T20:49:00Z</td><td>MSWin32</td><td>5.42.0</td><td>gregor herrmann</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/76cb672f-6c6d-1014-8029-c939dadd985e" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.22.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/93b20e4e-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-11T21:06:00Z</td><td>linux</td><td>5.12.5</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/4746ba0e-35ea-11f1-8a8a-d2e52339f29d" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-13T05:32:00Z</td><td>freebsd</td><td>5.14.4</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/28a88ba2-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.20.2</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/a05f3022-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/963379f0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
 <tr class="cpan-fail"><td>2026-04-11T20:58:00Z</td><td>linux</td><td>5.24.4</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/40837154-35e9-11f1-8910-8193b6e9123d" target="_blank">View</a></td></tr>
 <tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>linux</td><td>5.38.2</td><td>Slaven Rezi&#x107;</td><td></td>
 				<td><a href="https://www.cpantesters.org/cpan/report/91dd24c8-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-11T21:00:00Z</td><td>linux</td><td>5.20.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8263f6c0-35e9-11f1-b5ef-a4fafe07f46c" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>freebsd</td><td>5.24.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/979ab9c0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-11T21:06:00Z</td><td>linux</td><td>5.12.5</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/4746ba0e-35ea-11f1-8a8a-d2e52339f29d" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:58:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/963379f0-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.20.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8ae7709c-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-13T05:34:00Z</td><td>freebsd</td><td>5.10.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/68d1f59c-36fa-11f1-8be2-051a6e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.36.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8323920a-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-11T20:54:00Z</td><td>linux</td><td>5.30.2</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9e245cac-35e8-11f1-9b01-e88bfb5f8fec" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-12T05:57:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/794c026c-3634-11f1-854c-d4206e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-04-11T20:58:00Z</td><td>linux</td><td>5.28.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/31a83e26-35e9-11f1-a698-b19848aeaca0" target="_blank">View</a></td></tr>
 </tbody></table>
 <h2>Mutation Report</h2>
 <h3>Mutation Summary</h3>
@@ -366,7 +661,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <tr><th>File</th><th>Total</th><th>Killed</th><th>Survivors</th><th>Score%</th><th>Complexity</th><th title="TER1=Statement, TER2=Branch, TER3=LCSAJ Path">TER1 / TER2 / TER3</th></tr>
 
-<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/2d9788774e32fc578324254728475af8e41e9d7a/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
+<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/1b3df7d1467244261a0d329d3dcb048e522f3768/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
 </table>
 
 <h2>Structural Coverage (Approximate)</h2>
@@ -381,7 +676,7 @@ Tests execute 100.00% of the code, but detect only 100.00% of injected faults.
 </div>
 <footer>
 	<p>Project: <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country">Geo-Address-Parser-Country</a></p>
-	<p><em>Last updated: 2026-05-05 01:55:27 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/2d9788774e32fc578324254728475af8e41e9d7a">commit <code>2d97887</code></a></em></p>
+	<p><em>Last updated: 2026-05-05 11:41:31 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/1b3df7d1467244261a0d329d3dcb048e522f3768">commit <code>1b3df7d</code></a></em></p>
 </footer>
 
 </body>

@@ -4,100 +4,100 @@
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946127.62667,
+         "finish" : 1777981291.7558,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "/opt/hostedtoolcache/perl/5.40.4/x64/bin/prove",
-         "start" : 1777946121.82573,
-         "version" : "0.02"
+         "start" : 1777981286.21873,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946122.20567,
+         "finish" : 1777981286.58654,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/00-load.t",
-         "start" : 1777946122.07734,
-         "version" : "0.02"
+         "start" : 1777981286.4665,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946123.35314,
+         "finish" : 1777981287.6783,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/edge_cases.t",
-         "start" : 1777946122.67367,
-         "version" : "0.02"
+         "start" : 1777981287.03307,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946123.76655,
+         "finish" : 1777981288.06347,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/eof.t",
-         "start" : 1777946123.76624,
-         "version" : "0.02"
+         "start" : 1777981288.06308,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946124.01566,
+         "finish" : 1777981288.29171,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/eol.t",
-         "start" : 1777946124.01533,
-         "version" : "0.02"
+         "start" : 1777981288.29147,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946124.76232,
+         "finish" : 1777981289.01451,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/extended_tests.t",
-         "start" : 1777946124.42229,
-         "version" : "0.02"
+         "start" : 1777981288.68565,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946125.66869,
+         "finish" : 1777981289.89804,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/function.t",
-         "start" : 1777946125.19378,
-         "version" : "0.02"
+         "start" : 1777981289.43536,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946126.54339,
+         "finish" : 1777981290.7317,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/integration.t",
-         "start" : 1777946126.09561,
-         "version" : "0.02"
+         "start" : 1777981290.30152,
+         "version" : "0.03"
       },
       {
          "OS" : "linux",
          "abstract" : "Resolve a place string component to a canonical country name",
          "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
-         "finish" : 1777946127.42823,
+         "finish" : 1777981291.57517,
          "name" : "Geo-Address-Parser-Country",
          "perl" : "5.40.4",
          "run" : "t/unit.t",
-         "start" : 1777946126.97019,
-         "version" : "0.02"
+         "start" : 1777981291.13732,
+         "version" : "0.03"
       }
    ],
    "summary" : {
