@@ -1,5 +1,11 @@
 Revision history for Geo-Address-Parser-Country
 
+0.04
+
+      [Bug fixes]
+
+      - Bump minumum Locale::CA to fix https://www.cpantesters.org/cpan/report/ebaa0a06-37fc-11f1-acb9-eb813c3f718f
+
 0.03	Tue May  5 07:38:37 EDT 2026
 
       [Bug fixes]

@@ -21,7 +21,7 @@ WriteMakefile(
 	PREREQ_PM => {
 		'Carp'                   => 0,
 		'Locale::AU'             => 0,
-		'Locale::CA'             => 0,
+		'Locale::CA'             => 0.09,
 		'Locale::Object::Country' => 0,
 		'Locale::US'             => 0,
 		'Object::Configure' => 0,
