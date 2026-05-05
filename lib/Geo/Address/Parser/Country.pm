@@ -10,7 +10,7 @@ use Params::Get;
 use Params::Validate::Strict qw(validate_strict);
 use Return::Set qw(set_return);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # Direct component-to-country mappings, keyed on lowercase component.
 # Values are either a plain country string, or a hashref with
@@ -70,8 +70,7 @@ my %DIRECT = (
 	'ns'                     => {
 		country => 'Canada',
 		warning => "country 'Canada' missing from record",
-	},
-	'can.'                   => {
+	}, 'can.'                   => {
 		country => 'Canada',
 		warning => "country 'Canada' missing from record",
 	},
@@ -85,7 +84,7 @@ my $NEW_SCHEMA = {
 	au    => { type => 'object' },
 	geonames => {
 		type     => 'object',
-		can      => 'search',
+		# can      => 'search',	# Geo::GeoNames is broken, it uses AUTOLOAD.  I must fix that.
 		optional => 1,
 	},
 };
@@ -114,7 +113,7 @@ canonical country name
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =head1 SYNOPSIS
 

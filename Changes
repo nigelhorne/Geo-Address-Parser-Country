@@ -1,7 +1,51 @@
 Revision history for Geo-Address-Parser-Country
 
-0.03
-	Added Test Dashboard
+0.03	Tue May  5 07:38:37 EDT 2026
+
+      [Bug fixes]
+      - Fixed: NL (Newfoundland and Labrador) was resolving to Netherlands
+        because the %DIRECT table entry 'nl' shadowed the Locale::CA
+        province-code lookup at step 4.  Removed 'nl' from %DIRECT.
+      - Fixed: _geonames_lookup() would die under strict refs when the
+        GeoNames search returned a plain scalar instead of an arrayref or
+        hashref.  Added ref() guard before the hash dereference.
+      - Fixed: _geonames_lookup() would die via Return::Set schema
+        validation when countryName was itself a reference (e.g. a nested
+        hashref).  Added !ref() guard before returning the country name.
+      - Fixed: step 6 (Australian state code lookup) used the raw,
+        un-normalised component as the hash key, making the lookup
+        case-sensitive unlike steps 2-5.  uc($component) now applied
+        consistently.  (TODO: pending release)
+
+      [Enhancements]
+      - Added Object::Configure support to new(), allowing locale objects
+        to be supplied via environment variables or a config file rather
+        than always being passed explicitly at construction time.
+      - Removed the can('new') requirement from the $NEW_SCHEMA locale
+        object entries.  The locale objects are used as data containers,
+        not factories, so this check was incorrect and prevented plain
+        blessed hashrefs from being used as stubs.
+      - Removed the can('search') requirement from the geonames schema
+        entry.  Geo::GeoNames dispatches via AUTOLOAD so can('search')
+        returns false at the Perl level even though ->search() works at
+        runtime.  The check is commented out pending a fix to
+        Geo::GeoNames itself.
+      - NU (Nunavut) now resolves correctly to Canada following an update
+        to Locale::CA.
+
+      [Dependencies]
+      - Added: Object::Configure
+      - Minimum ExtUtils::MakeMaker bumped to 6.64 for TEST_REQUIRES
+        support.
+
+      [Tests]
+      - Added comprehensive test suite: function.t (white-box), unit.t
+        (black-box API), integration.t (end-to-end with real locale
+        packages), edge_cases.t (destructive and boundary conditions), and
+        extended_tests.t (coverage and LCSAJ gap-filling).
+      - Identified and documented two remaining known-bug TODO items:
+        step 6 AU code case-sensitivity and the %DIRECT hashref
+        warning-absent dead branch.
 
 0.02	Sat Apr 11 08:24:22 EDT 2026
 	Fix CI
