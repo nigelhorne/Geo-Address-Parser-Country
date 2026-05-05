@@ -1,0 +1,197 @@
+{
+   "runs" : [
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946127.62667,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "/opt/hostedtoolcache/perl/5.40.4/x64/bin/prove",
+         "start" : 1777946121.82573,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946122.20567,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/00-load.t",
+         "start" : 1777946122.07734,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946123.35314,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/edge_cases.t",
+         "start" : 1777946122.67367,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946123.76655,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/eof.t",
+         "start" : 1777946123.76624,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946124.01566,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/eol.t",
+         "start" : 1777946124.01533,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946124.76232,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/extended_tests.t",
+         "start" : 1777946124.42229,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946125.66869,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/function.t",
+         "start" : 1777946125.19378,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946126.54339,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/integration.t",
+         "start" : 1777946126.09561,
+         "version" : "0.02"
+      },
+      {
+         "OS" : "linux",
+         "abstract" : "Resolve a place string component to a canonical country name",
+         "dir" : "/home/runner/work/Geo-Address-Parser-Country/Geo-Address-Parser-Country",
+         "finish" : 1777946127.42823,
+         "name" : "Geo-Address-Parser-Country",
+         "perl" : "5.40.4",
+         "run" : "t/unit.t",
+         "start" : 1777946126.97019,
+         "version" : "0.02"
+      }
+   ],
+   "summary" : {
+      "/opt/hostedtoolcache/perl/5.40.4/x64/bin/prove" : {
+         "branch" : {
+            "covered" : 2,
+            "error" : 2,
+            "percentage" : 50,
+            "total" : 4,
+            "uncoverable" : 0
+         },
+         "statement" : {
+            "covered" : 14,
+            "percentage" : 100,
+            "total" : 14
+         },
+         "subroutine" : {
+            "covered" : 4,
+            "percentage" : 100,
+            "total" : 4
+         },
+         "total" : {
+            "covered" : 20,
+            "error" : 2,
+            "percentage" : 90.9090909090909,
+            "total" : 22,
+            "uncoverable" : 0
+         }
+      },
+      "Total" : {
+         "branch" : {
+            "covered" : 35,
+            "error" : 3,
+            "percentage" : 92.1052631578947,
+            "total" : 38,
+            "uncoverable" : 0
+         },
+         "condition" : {
+            "covered" : 19,
+            "error" : 2,
+            "percentage" : 90.4761904761905,
+            "total" : 21,
+            "uncoverable" : 0
+         },
+         "statement" : {
+            "covered" : 91,
+            "percentage" : 100,
+            "total" : 91
+         },
+         "subroutine" : {
+            "covered" : 16,
+            "percentage" : 100,
+            "total" : 16
+         },
+         "total" : {
+            "covered" : 161,
+            "error" : 5,
+            "percentage" : 96.9879518072289,
+            "total" : 166,
+            "uncoverable" : 0
+         }
+      },
+      "blib/lib/Geo/Address/Parser/Country.pm" : {
+         "branch" : {
+            "covered" : 33,
+            "error" : 1,
+            "percentage" : 97.0588235294118,
+            "total" : 34,
+            "uncoverable" : 0
+         },
+         "condition" : {
+            "covered" : 19,
+            "error" : 2,
+            "percentage" : 90.4761904761905,
+            "total" : 21,
+            "uncoverable" : 0
+         },
+         "statement" : {
+            "covered" : 77,
+            "percentage" : 100,
+            "total" : 77
+         },
+         "subroutine" : {
+            "covered" : 12,
+            "percentage" : 100,
+            "total" : 12
+         },
+         "total" : {
+            "covered" : 141,
+            "error" : 3,
+            "percentage" : 97.9166666666667,
+            "total" : 144,
+            "uncoverable" : 0
+         }
+      }
+   }
+}
