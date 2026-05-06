@@ -22,6 +22,7 @@ use warnings;
 use utf8;
 use open qw(:std :utf8);
 
+use POSIX qw(setlocale LC_ALL);
 use Test::Most;
 use Scalar::Util qw(looks_like_number);
 
@@ -851,14 +852,61 @@ subtest 'regression: NU (Nunavut) resolves to Canada when Locale::CA is sufficie
 			eval { require Locale::CA; Locale::CA->VERSION } // 0;
 		};
 		skip 'Locale::CA not installed', 2 unless $ca_version;
-		skip "NU requires Locale::CA >= 0.07, have $ca_version", 2
-			if $ca_version < 0.07;
+		skip "NU requires Locale::CA >= 0.09, have $ca_version", 2
+			if $ca_version < 0.09;
 
 		my $r = _resolver();
 		local $SIG{__WARN__} = sub {};
 		my $res = $r->resolve(component => 'NU', place => 'City, NU');
-		is  $res->{country}, 'Canada', 'NU resolves to Canada with Locale::CA >= 0.07';
+		is  $res->{country}, 'Canada', 'NU resolves to Canada with Locale::CA >= 0.09';
 		is  $res->{unknown}, 0,        'unknown == 0';
+	}
+};
+
+subtest 'regression: de_DE locale does not corrupt uc()/lc() hash lookups' => sub {
+	# CPAN Testers: 100% of failures were on de_DE locale across all Perl
+	# versions (5.10 through 5.40) on both linux and freebsd.  Under de_DE,
+	# uc()/lc() behaviour can differ for certain characters, causing hash
+	# lookups in %DIRECT and the locale tables to silently miss.
+	# Fixed by adding "no locale" at the top of Country.pm, insulating
+	# uc()/lc() from the system locale.
+
+	# Attempt to switch to de_DE; skip gracefully if not available
+	SKIP: {
+		my $orig = POSIX::setlocale(POSIX::LC_ALL());
+		my $de   = POSIX::setlocale(POSIX::LC_ALL(), 'de_DE.UTF-8')
+			// POSIX::setlocale(POSIX::LC_ALL(), 'de_DE');
+		skip 'de_DE locale not available on this system', 6 unless defined $de;
+
+		my $r = _resolver();
+
+		# These must resolve identically under de_DE as under C locale
+		my $res_england = $r->resolve(component => 'England', place => 'London, England');
+		is $res_england->{country}, 'United Kingdom',
+			'England -> United Kingdom under de_DE locale';
+
+		my $res_tx = $r->resolve(component => 'TX', place => 'Houston, TX');
+		is $res_tx->{country}, 'United States',
+			'TX -> United States under de_DE locale';
+
+		my $res_on = $r->resolve(component => 'ON', place => 'Toronto, ON');
+		is $res_on->{country}, 'Canada',
+			'ON -> Canada under de_DE locale';
+
+		my $res_nsw = $r->resolve(component => 'NSW', place => 'Sydney, NSW');
+		is $res_nsw->{country}, 'Australia',
+			'NSW -> Australia under de_DE locale';
+
+		my $res_de = $r->resolve(component => 'Deutschland', place => 'Berlin, Deutschland');
+		is $res_de->{country}, 'Germany',
+			'Deutschland -> Germany under de_DE locale';
+
+		my $res_auto = $r->resolve(place => 'Ramsgate, Kent, England');
+		is $res_auto->{country}, 'United Kingdom',
+			'auto-extraction -> United Kingdom under de_DE locale';
+
+		# Restore original locale
+		POSIX::setlocale(POSIX::LC_ALL(), $orig);
 	}
 };
 
