@@ -10,7 +10,7 @@ use Params::Get;
 use Params::Validate::Strict qw(validate_strict);
 use Return::Set qw(set_return);
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # Direct component-to-country mappings, keyed on lowercase component.
 # Values are either a plain country string, or a hashref with
@@ -130,7 +130,7 @@ canonical country name
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =head1 SYNOPSIS
 
