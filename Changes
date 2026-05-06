@@ -2,9 +2,37 @@ Revision history for Geo-Address-Parser-Country
 
 0.04
 
+      [Enhancements]
+      - resolve() now accepts place as the only required argument.
+        The component (last comma-separated token) is extracted
+        automatically when not supplied explicitly.  Existing callers
+        passing component explicitly are unaffected.
+      - Added normalise_place() stub.  The method accepts a place
+        string and will eventually insert missing commas before
+        country and state names in raw uncleaned input.  Currently
+        returns the place string unchanged.  Full POD, input/output
+        schemas, and test coverage are in place ahead of
+        implementation.
+
       [Bug fixes]
+      - Fixed trailing whitespace being included in the auto-extracted
+        component.  The extraction regex now uses a non-greedy
+        quantifier ([^,]+?) so trailing spaces are trimmed cleanly
+        before resolution begins.
 
       - Bump minumum Locale::CA to fix https://www.cpantesters.org/cpan/report/ebaa0a06-37fc-11f1-acb9-eb813c3f718f
+
+      [Tests]
+      - function.t: added white-box subtests for component
+        auto-extraction (two-segment, three-segment, no-comma,
+        trailing-whitespace, explicit-override, US state) and
+        normalise_place() schema and return-value invariants.
+      - unit.t: added black-box subtests for the simple resolve()
+        form and all normalise_place() API contract assertions.
+        Plan count updated to 56.
+      - integration.t: added end-to-end subtests for the simple
+        resolve() form with real genealogy place strings and the
+        normalise_place() -> resolve() pipeline.
 
 0.03	Tue May  5 07:38:37 EDT 2026
 
