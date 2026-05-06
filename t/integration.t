@@ -214,10 +214,11 @@ subtest 'Locale::CA integration: English province codes resolve to Canada' => su
     # NL (Newfoundland and Labrador) is a known module bug: the %DIRECT
     # table maps 'nl' -> Netherlands at step 1, which fires before the
     # Locale::CA code path is reached.  Tracked as a GitHub issue.
-    # All other provinces and territories (including the newly-added NU)
-    # are expected to pass.
-    my @provinces    = qw(AB BC MB NB    NS NT NU ON PE QC SK YT);
-    my @known_broken = qw(NL);
+    # NU (Nunavut) requires Locale::CA >= 0.07 (added by the author).
+    # Older installed versions will not have it; skip gracefully.
+    my $ca_version = Locale::CA->VERSION // 0;
+    my @provinces = qw(AB BC MB NB NS NT ON PE QC SK YT);
+    push @provinces, 'NU' if $ca_version >= 0.07;
 
     my $pass = 1;
     for my $code (@provinces) {
@@ -236,6 +237,14 @@ subtest 'Locale::CA integration: English province codes resolve to Canada' => su
         my $res = $resolver->resolve(component => 'NL', place => 'City, NL');
         ok defined($res->{country}) && $res->{country} eq 'Canada',
             'NL resolves to Canada';
+    }
+
+    SKIP: {
+        skip 'NU (Nunavut) requires Locale::CA >= 0.07', 1 if $ca_version < 0.07;
+        local $SIG{__WARN__} = sub {};
+        my $res = $resolver->resolve(component => 'NU', place => 'City, NU');
+        ok defined($res->{country}) && $res->{country} eq 'Canada',
+            'NU (Nunavut) resolves to Canada';
     }
 };
 

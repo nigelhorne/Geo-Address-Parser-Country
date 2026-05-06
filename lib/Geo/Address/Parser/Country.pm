@@ -393,12 +393,12 @@ C<", Australia">) is appended to C<place> if not already present.
 
 =head3 Example
 
-    # Simple form — component extracted automatically
+    # Simple form - component extracted automatically
     my $result = $resolver->resolve(
         place => 'Houston, TX',
     );
 
-    # Explicit form — component supplied by caller
+    # Explicit form - component supplied by caller
     my $result = $resolver->resolve(
         component => 'TX',
         place     => 'Houston, TX',

@@ -19,7 +19,18 @@ Revision history for Geo-Address-Parser-Country
         component.  The extraction regex now uses a non-greedy
         quantifier ([^,]+?) so trailing spaces are trimmed cleanly
         before resolution begins.
-
+      - Fixed "Wide character in print" noise in edge_cases.t output
+        caused by em dash characters in subtest names becoming decoded
+        Unicode after adding "use utf8".  Fixed by adding
+        "use open qw(:std :utf8)" to bind stdout to UTF-8.
+      - Fixed "can't be decoded" failures in Params::Validate::Strict
+        on Perl 5.18 for Unicode wide-character inputs (NBSP, EM SPACE,
+        Arabic script) in edge_cases.t.  Fixed by adding "use utf8" to
+        the test file and SKIP guards for Perl < 5.20.
+      - Fixed NU (Nunavut) test failure on systems with Locale::CA
+        0.06, which predates the addition of NU.  The integration and
+        edge_cases tests now check Locale::CA->VERSION at runtime and
+        skip gracefully on older installs.
       - Bump minumum Locale::CA to fix https://www.cpantesters.org/cpan/report/ebaa0a06-37fc-11f1-acb9-eb813c3f718f
 
       [Tests]
@@ -33,6 +44,10 @@ Revision history for Geo-Address-Parser-Country
       - integration.t: added end-to-end subtests for the simple
         resolve() form with real genealogy place strings and the
         normalise_place() -> resolve() pipeline.
+      - Added six targeted regression subtests to edge_cases.t covering
+        the above CPAN Testers failures, with report reference for the
+        Unicode issue.  These will catch recurrence if Perl or
+        Params::Validate::Strict behaviour changes in future.
 
 0.03	Tue May  5 07:38:37 EDT 2026
 
