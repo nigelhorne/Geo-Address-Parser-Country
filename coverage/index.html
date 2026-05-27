@@ -153,7 +153,7 @@
 
 <tbody>
 
-<tr class="high"><td><a href="lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/fc75f532fbff894afcb2a45c34ce7b25729c0901/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points="97.9,97.9,97.9,97.9,97.9,96.2,96.2,96.2,96.2"></canvas></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">96.2%</span></td><td class="neutral" title="Previous (sparkline): 96.2%">&#9679; 0.0%</td></tr>
+<tr class="high"><td><a href="blib-lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/132805b40ac29f5cc109a561c22af45b2aa17359/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points="97.9,97.9,97.9,97.9,97.9,96.2,96.2,96.2,96.2,96.2"></canvas></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">96.2%</span></td><td class="neutral" title="Previous (sparkline): 96.2%">&#9679; 0.0%</td></tr>
 <tr class="summary-row nosort"><td colspan="2"><strong>Summary</strong></td><td colspan="2">1 files</td><td colspan="3">Avg: 96%, Low: 0</td></tr>
 <tr class="high nosort"><td><strong>Total</strong></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td colspan="2"><strong>96.2</strong></td></tr>
 </tbody></table>
@@ -210,7 +210,8 @@ const dataPoints = [ { x: "2026-05-05T01:58:06+00:00", y: 97.9166666666667, delt
 { x: "2026-05-06T12:48:40+00:00", y: 96.25, delta: -1.7, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/6275bbd93c1e83b0a424cabf35c9f1b8f287fd24", label: "2026-05-06T12:48:40+00:00", pointBackgroundColor: "red", comment: "Update mutation results (2026-05-06 75b2a41)" },
 { x: "2026-05-06T13:21:46+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/a0c67509dd0d4a8738d9ebcf136d52a7f089e8c6", label: "2026-05-06T13:21:46+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 c936127)" },
 { x: "2026-05-06T13:40:56+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/ac46162a741459579baa713e6565c279a1e50f28", label: "2026-05-06T13:40:56+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 0fb7160)" },
-{ x: "2026-05-06T14:04:06+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/13b8f1114ce998c3bea4a3412748ae1ce57613b8", label: "2026-05-06T14:04:06+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 b1f037d)" } ];
+{ x: "2026-05-06T14:04:06+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/13b8f1114ce998c3bea4a3412748ae1ce57613b8", label: "2026-05-06T14:04:06+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 b1f037d)" },
+{ x: "2026-05-06T15:20:28+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/aa0907e0f8f3e1679b736f394cb17756c7fd5b4a", label: "2026-05-06T15:20:28+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 fc75f53)" } ];
 const regressionPoints = linearRegression(dataPoints);
 // Try to register the zoom plugin (handles different UMD builds)
 (function registerZoomPlugin(){
@@ -462,19 +463,13 @@ function refresh(){
 
 <p><center>Use mouse wheel or pinch to zoom; drag to pan</center></p>
 <p>No issues active on <a href="https://rt.cpan.org/Public/Dist/Display.html?Name=Geo-Address-Parser-Country">RT</a></p>
-<h2>CPAN Testers Failures for Geo-Address-Parser-Country 0.03</h2>
+<h2>CPAN Testers Failures for Geo-Address-Parser-Country 0.04</h2>
 <h3>Failure Summary (all reports)</h3>
 <ul>
-<li><b>Perl 5.40.x</b>: 4 failures</li>
-<li><b>linux</b>: 17 failures</li>
-<li><b>5.20 / freebsd</b>: 4 failures</li>
+<li><b>Perl 5.40.x</b>: 2 failures</li>
+<li><b>linux</b>: 4 failures</li>
+<li><b>5.40 / linux</b>: 2 failures</li>
 </ul>
-<h3>Locale-sensitive failures detected</h3>
-<div class="notice locale-cliff">
-<ul>
-<li><code>de_DE</code> - 15 FAIL / 0 PASS (100%)</li>
-</ul>
-</div>
 <h3>Likely Root Causes</h3>
 <table class="root-causes">
 <thead>
@@ -486,16 +481,10 @@ function refresh(){
 </thead>
 <tbody>
 
-<tr class="high">
-	<td halign="center"><strong>Locale-sensitive behavior (de_DE)</strong></td>
-	<td halign="center">Strong (100%)</td>
-	<td halign="center"><ul><li>15/15 failures with LANG=de_DE</li><li>English locales show fewer or no failures</li></ul></td>
-</tr>
-
 <tr class="low">
 	<td halign="center"><strong>Scattered failures (no clear version or OS pattern)</strong></td>
 	<td halign="center">Weak (40%)</td>
-	<td halign="center"><ul><li>Failures and passes both seen on 13 common Perl series</li><li>Possible causes: flaky tests, optional dependency differences, or CGI environment assumptions</li><li>Review test output from failing reports for specific error messages</li></ul></td>
+	<td halign="center"><ul><li>Failures and passes both seen on 4 common Perl series</li><li>Possible causes: flaky tests, optional dependency differences, or CGI environment assumptions</li><li>Review test output from failing reports for specific error messages</li></ul></td>
 </tr>
 
 </tbody>
@@ -586,72 +575,18 @@ document.addEventListener("DOMContentLoaded", () => {
 </thead>
 <tbody>
 
-<tr class="cpan-fail"><td>2026-05-05T21:42:00Z</td><td>linux</td><td>5.36.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/4bd52968-48cb-11f1-8a06-8946349df305" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:19:00Z</td><td>freebsd</td><td>5.20.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/28e3dd4e-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-06T09:51:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/3358ef62-4931-11f1-a8e2-4d036e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:51:00Z</td><td>linux</td><td>5.24.4</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/87cf505a-48cc-11f1-ab42-de42a202f215" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:46:00Z</td><td>linux</td><td>5.32.1</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/e13ca594-48cb-11f1-9a30-e430fa2403cc" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:39:00Z</td><td>linux</td><td>5.40.2</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/ed1b76ca-48ca-11f1-a5eb-cd035dd2bdb3" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:55:00Z</td><td>linux</td><td>5.22.4</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/28bfc30a-48cd-11f1-92d1-d7526c331d40" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:47:00Z</td><td>linux</td><td>5.32.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/152d0d12-48cc-11f1-bb73-e5dce5af0c7f" target="_blank">View</a></td></tr>
-<tr class="cpan-na"><td>2026-05-05T13:14:00Z</td><td>freebsd</td><td>5.8.9</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/4ee6fb8c-4884-11f1-9bed-1e046e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:41:00Z</td><td>linux</td><td>5.40.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/355e00ec-48cb-11f1-860a-f223ed86cfbf" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:19:00Z</td><td>freebsd</td><td>5.28.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/20065c42-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:52:00Z</td><td>linux</td><td>5.24.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/b3e3cd4c-48cc-11f1-a23f-9cccca75173f" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:59:00Z</td><td>linux</td><td>5.18.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9f309938-48cd-11f1-b52d-bd5490d4a0bd" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:14:00Z</td><td>freebsd</td><td>5.20.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/787b2b88-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:18:00Z</td><td>freebsd</td><td>5.24.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/f37bfd08-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:18:00Z</td><td>freebsd</td><td>5.20.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/fe914284-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:18:00Z</td><td>freebsd</td><td>5.22.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/e56ef198-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:14:00Z</td><td>freebsd</td><td>5.16.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/601e0b00-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:20:00Z</td><td>freebsd</td><td>5.10.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/43bf6ca0-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:17:00Z</td><td>freebsd</td><td>5.24.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/d633093a-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:21:00Z</td><td>linux</td><td>5.38.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/5f1d8a0e-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:50:00Z</td><td>linux</td><td>5.26.2</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/71a40bd6-48cc-11f1-bee7-e81f962dc04a" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:20:00Z</td><td>linux</td><td>5.38.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/4ce30b52-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:19:00Z</td><td>freebsd</td><td>5.20.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/16e903d0-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:21:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/5663a164-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:15:00Z</td><td>freebsd</td><td>5.18.4</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8dac6396-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:20:00Z</td><td>freebsd</td><td>5.18.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/3191c26c-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:49:00Z</td><td>linux</td><td>5.28.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/5c06beae-48cc-11f1-a477-91d341012a76" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:48:00Z</td><td>linux</td><td>5.30.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/2f359cec-48cc-11f1-a140-bdc7232ad6bf" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:17:00Z</td><td>freebsd</td><td>5.22.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/c7abc780-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:13:00Z</td><td>linux</td><td>5.36.3</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/42f38abe-48c7-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:20:00Z</td><td>freebsd</td><td>5.14.4</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/3a342ca2-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-05T21:19:00Z</td><td>freebsd</td><td>5.22.1</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/0c8d5846-48c8-11f1-9996-8c216e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-05-07T20:28:00Z</td><td>openbsd</td><td>5.36.1</td><td>Brian Blackmore</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/569fcca2-4a53-11f1-be04-ac72a68bf03a" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-05-08T05:46:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/4da2ea1e-4aa1-11f1-9fd8-a2d66d8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-05-07T12:33:00Z</td><td>linux</td><td>5.40.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/f265b90a-4a10-11f1-a025-82e0b058d69b" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-05-07T12:44:00Z</td><td>linux</td><td>5.28.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/8440ff96-4a12-11f1-86f1-855f51000db2" target="_blank">View</a></td></tr>
+<tr class="cpan-fail"><td>2026-05-09T17:32:00Z</td><td>linux</td><td>5.38.2</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/0dcead10-4bcd-11f1-bdc4-bb036e8775ea" target="_blank">View</a></td></tr>
+<tr class="cpan-na"><td>2026-05-06T23:09:00Z</td><td>freebsd</td><td>5.8.9</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9e5829ee-49a0-11f1-baaf-fa416e8775ea" target="_blank">View</a></td></tr>
 </tbody></table>
 <h2>Mutation Report</h2>
 <h3>Mutation Summary</h3>
@@ -669,9 +604,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <table border='1' cellpadding='5'>
 
-<tr><th>File</th><th>Total</th><th>Killed</th><th>Survivors</th><th>Score%</th><th>Complexity</th><th title="TER1=Statement, TER2=Branch, TER3=LCSAJ Path">TER1 / TER2 / TER3</th></tr>
+<tr><th>File</th><th>Total</th><th>Killed</th><th>Survivors</th><th>Skipped</th><th>Score%</th><th>Complexity</th><th title="TER1=Statement, TER2=Branch, TER3=LCSAJ Path">TER1 / TER2 / TER3</th></tr>
 
-<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/fc75f532fbff894afcb2a45c34ce7b25729c0901/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
+<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/132805b40ac29f5cc109a561c22af45b2aa17359/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
 </table>
 
 <h2>Structural Coverage (Approximate)</h2>
@@ -682,12 +617,12 @@ Branch Coverage: 97.06% (33 / 34)<br>
 </div>
 <h2>Executive Summary</h2>
 <div class='summary'>
-Tests execute 100.00% of the code, but detect only 100.00% of injected faults.
+Tests execute 100.00% of the code and detect 100.00% of injected faults.
 </div>
 <footer>
 	<p>Project: <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country">Geo-Address-Parser-Country</a></p>
-	<p><em>Last updated: 2026-05-06 15:17:59 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/fc75f532fbff894afcb2a45c34ce7b25729c0901">commit <code>fc75f53</code></a></em></p>
+	<p><em>Last updated: 2026-05-27 00:30:17 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/132805b40ac29f5cc109a561c22af45b2aa17359">commit <code>132805b</code></a></em></p>
+	<p style="float: right; font-size: 0.85em; color: #999;">Powered by <a href="https://metacpan.org/dist/App-Test-Generator">App::Test::Generator 0.39</a></p>
 </footer>
-
 </body>
 </html>
