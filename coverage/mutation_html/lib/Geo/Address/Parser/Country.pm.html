@@ -246,7 +246,7 @@ pre details.mutant-details ul {
 <strong>Structural Coverage (Approximate)</strong><p>
 TER1 (Statement): 100.00%<br>
 TER2 (Branch): 97.06%<br>
-TER3 (LCSAJ): 100.0% (6/6)<br>
+TER3 (LCSAJ): 100.0% (2/2)<br>
 Approximate LCSAJ segments: 35<br>
 </div>
 
@@ -704,7 +704,7 @@ Approximate LCSAJ segments: 35<br>
 </span><span class="">  412: =cut
 </span><span class="">  413: 
 </span><span class="">  414: sub resolve {
-</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">415 → 447 → 516</span></span><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">415 → 447 → 0</span></span>  415: 	my $self = shift;
+</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">415 → 447 → 516</span></span>  415: 	my $self = shift;
 </span><span class="">  416: 
 </span><span class="">  417: 	# Accept both hashref and flat list
 </span><span class="">  418: 	my $args = Params::Get::get_params(undef, @_);
@@ -805,7 +805,7 @@ Approximate LCSAJ segments: 35<br>
 </span><span class="">  513: 	}
 </span><span class="">  514: 
 </span><span class="">  515: 	# Build and validate the return structure before handing back
-</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">516 → 523 → 0</span></span>  516: 	my $result = {
+</span><span class="">  516: 	my $result = {
 </span><span class="">  517: 		country  =&gt; $country,
 </span><span class="">  518: 		place    =&gt; $place,
 </span><span class="">  519: 		warnings =&gt; \@warnings,
@@ -979,7 +979,7 @@ Approximate LCSAJ segments: 35<br>
 </span><span class="">  687: #   The first result is used.
 </span><span class="">  688: 
 </span><span class="">  689: sub _geonames_lookup {
-</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">690 → 699 → 706</span></span><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">690 → 699 → 0</span></span>  690: 	my ($self, $place, $component, $warnings) = @_;
+</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">690 → 699 → 706</span></span>  690: 	my ($self, $place, $component, $warnings) = @_;
 </span><span class="">  691: 
 </span><span class="">  692: 	my $result = $self-&gt;{geonames}-&gt;search(
 </span><span class="">  693: 		q     =&gt; $place,
@@ -995,7 +995,7 @@ Approximate LCSAJ segments: 35<br>
 </span><span class="">  703: 	}
 </span><span class="">  704: 
 </span><span class="">  705: 	# Must be a plain hashref at this point
-</span><span class=""><span class="lcsaj-tip"><span class="lcsaj-dot">●</span><span class="lcsaj-tip-text">706 → 715 → 0</span></span>  706: 	return unless ref($result) eq &#39;HASH&#39;;
+</span><span class="">  706: 	return unless ref($result) eq &#39;HASH&#39;;
 </span><span class="">  707: 
 </span><span class="">  708: 	# Extract country name; must be a defined, non-ref, non-empty string
 </span><span class="">  709: 	my $country = $result-&gt;{countryName};
