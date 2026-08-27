@@ -42,7 +42,7 @@
 		/* Show cursor points on the headers to show that they are clickable */
 		th { background-color: #f2f2f2; cursor: pointer; }
 		th.sortable {
-			cursor: pointer;
+			cursor: grab;
 			user-select: none;
 			white-space: nowrap;
 		}
@@ -54,6 +54,11 @@
 			color: #000;	/* dark for active */
 			font-weight: bold;
 		}
+		/* Prevent child spans intercepting drag events so enter/leave fire only on the th */
+		th.sortable .label,
+		th.sortable .arrow { pointer-events: none; }
+		th.col-dragging { opacity: 0.4; cursor: grabbing; }
+		th.col-drag-over { outline: 2px dashed #555; background-color: #d8eaff !important; }
 		.sparkline {
 			display: inline-block;
 			vertical-align: middle;
@@ -137,7 +142,7 @@
 	<img src="https://img.shields.io/badge/coverage-96%25-brightgreen" alt="Coverage badge">
 </div>
 <h1>Geo::Address::Parser::Country</h1><h2>Coverage Report</h2>
-<table data-sort-col="0" data-sort-order="asc">
+<table data-sort-col="0" data-sort-order="asc" data-table-id="coverage">
 <!-- Make the column headers clickable -->
 <thead>
 <tr>
@@ -153,7 +158,7 @@
 
 <tbody>
 
-<tr class="high"><td><a href="blib-lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/db2365e487fa166f32e1a748fc52dc5c3eba1b1a/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points="97.9,97.9,97.9,97.9,96.2,96.2,96.2,96.2,96.2,96.2"></canvas></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">96.2%</span></td><td class="neutral" title="Previous (sparkline): 96.2%">&#9679; 0.0%</td></tr>
+<tr class="high"><td><a href="blib-lib-Geo-Address-Parser-Country-pm.html" title="View coverage line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/30bfc24a4d64b9d0b3a18e0d3f89b6b27b6b4590/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a><canvas class="sparkline" width="80" height="20" data-points="97.9,97.9,97.9,96.2,96.2,96.2,96.2,96.2,96.2,96.2"></canvas></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td><span class="coverage-badge badge-good" title="Excellent coverage">96.2%</span></td><td class="neutral" title="Previous: 96.2%">&#9679; 0.0%</td></tr>
 <tr class="summary-row nosort"><td colspan="2"><strong>Summary</strong></td><td colspan="2">1 files</td><td colspan="3">Avg: 96%, Low: 0</td></tr>
 <tr class="high nosort"><td><strong>Total</strong></td><td>100.0</td><td>97.1</td><td>81.5</td><td>100.0</td><td colspan="2"><strong>96.2</strong></td></tr>
 </tbody></table>
@@ -202,8 +207,7 @@ function linearRegression(data) {
 }
 
 
-const dataPoints = [ { x: "2026-05-05T01:58:06+00:00", y: 97.9166666666667, delta: 0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/37e88e0b05ba325cb6351b8dd07865c4546bfa8f", label: "2026-05-05T01:58:06+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 2d97887)" },
-{ x: "2026-05-05T11:59:14+00:00", y: 97.9166666666667, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/507327c79fe2769d2c451106986bc1dfb6e1f479", label: "2026-05-05T11:59:14+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 f49a4f5)" },
+const dataPoints = [ { x: "2026-05-05T11:59:14+00:00", y: 97.9166666666667, delta: 0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/507327c79fe2769d2c451106986bc1dfb6e1f479", label: "2026-05-05T11:59:14+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 f49a4f5)" },
 { x: "2026-05-05T12:03:41+00:00", y: 97.9166666666667, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/54a0fbc664c877ba9b6b8aeb42cc86c85d948914", label: "2026-05-05T12:03:41+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 95a9e38)" },
 { x: "2026-05-05T17:15:11+00:00", y: 97.9166666666667, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/5e64db105fd734589f942ce874ec9714581f69a4", label: "2026-05-05T17:15:11+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-05 a911eea)" },
 { x: "2026-05-06T12:48:40+00:00", y: 96.25, delta: -1.7, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/6275bbd93c1e83b0a424cabf35c9f1b8f287fd24", label: "2026-05-06T12:48:40+00:00", pointBackgroundColor: "red", comment: "Update mutation results (2026-05-06 75b2a41)" },
@@ -211,7 +215,9 @@ const dataPoints = [ { x: "2026-05-05T01:58:06+00:00", y: 97.9166666666667, delt
 { x: "2026-05-06T13:40:56+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/ac46162a741459579baa713e6565c279a1e50f28", label: "2026-05-06T13:40:56+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 0fb7160)" },
 { x: "2026-05-06T14:04:06+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/13b8f1114ce998c3bea4a3412748ae1ce57613b8", label: "2026-05-06T14:04:06+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 b1f037d)" },
 { x: "2026-05-06T15:20:28+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/aa0907e0f8f3e1679b736f394cb17756c7fd5b4a", label: "2026-05-06T15:20:28+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-06 fc75f53)" },
-{ x: "2026-05-27T00:39:10+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/d795e898080890fad2fc81c9dd03064ef778d41d", label: "2026-05-27T00:39:10+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-27 132805b)" } ];
+{ x: "2026-05-27T00:39:10+00:00", y: 96.25, delta: 0.0, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/d795e898080890fad2fc81c9dd03064ef778d41d", label: "2026-05-27T00:39:10+00:00", pointBackgroundColor: "gray", comment: "Update mutation results (2026-05-27 132805b)" },
+{ x: "2026-06-27T00:48:30+00:00", y: 48.125, delta: -48.1, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/5b439c19de764ab3b852f98082752bd47be82193", label: "2026-06-27T00:48:30+00:00", pointBackgroundColor: "red", comment: "Update mutation results (2026-06-27 db2365e)" },
+{ x: "2026-08-27T12:26:18+00:00", y: 96.25, delta: 48.1, url: "https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/30bfc24a4d64b9d0b3a18e0d3f89b6b27b6b4590", label: "2026-08-27T12:26:18+00:00", pointBackgroundColor: "green", comment: "Merge pull request #2 from nigelhorne/dependabot/github_actions/actions/checkout-7" } ];
 const regressionPoints = linearRegression(dataPoints);
 // Try to register the zoom plugin (handles different UMD builds)
 (function registerZoomPlugin(){
@@ -334,7 +340,10 @@ if(resetBtn) {
 	});
 }
 
-function sortTable(th, colIndex) {
+function sortTable(th) {
+	// Always recompute colIndex from DOM so it stays correct after drag-reordering.
+	// The historic onclick="sortTable(this, N)" calls still work; the N is ignored.
+	const colIndex = Array.from(th.parentElement.cells).indexOf(th);
 	const table = th.closest("table");
 	if(!table || !table.tBodies.length) return;
 
@@ -345,21 +354,30 @@ function sortTable(th, colIndex) {
 	const prevOrder = table.getAttribute("data-sort-order") || "desc";
 	const asc = (prevCol != colIndex) ? true : (prevOrder === "desc");
 
-	const isNumeric = colIndex === 0; // Date column
+	const isDate = th.dataset.sortType === 'date';
 
 	const normalRows = rows.filter(r => !r.classList.contains("nosort"));
 	const fixedRows = rows.filter(r => r.classList.contains("nosort"));
 
 	normalRows.sort((a, b) => {
-		let x = a.cells[colIndex]?.innerText.trim() || "";
-		let y = b.cells[colIndex]?.innerText.trim() || "";
+		const cellA = a.cells[colIndex];
+		const cellB = b.cells[colIndex];
+		let x = (cellA?.dataset.value ?? cellA?.innerText ?? "").trim();
+		let y = (cellB?.dataset.value ?? cellB?.innerText ?? "").trim();
 
-		if(isNumeric) {
+		if(isDate) {
 			x = Date.parse(x) || 0;
 			y = Date.parse(y) || 0;
 		} else {
-			x = x.toLowerCase();
-			y = y.toLowerCase();
+			const nx = parseFloat(x);
+			const ny = parseFloat(y);
+			if(!isNaN(nx) && !isNaN(ny)) {
+				x = nx;
+				y = ny;
+			} else {
+				x = x.toLowerCase();
+				y = y.toLowerCase();
+			}
 		}
 
 		if(x < y) return asc ? -1 : 1;
@@ -387,28 +405,235 @@ function sortTable(th, colIndex) {
 
 	table.setAttribute("data-sort-col", colIndex);
 	table.setAttribute("data-sort-order", asc ? "asc" : "desc");
+	saveSortState(table);
 }
 
+// ---------------------------------------------------------
+// Column drag-to-reorder
+// ---------------------------------------------------------
+let _dragSrcTh = null;
+let _initializingTables = false;
+
+// ---------------------------------------------------------
+// localStorage persistence for sort state and column order
+// ---------------------------------------------------------
+function _tableId(table) {
+	return table ? table.dataset.tableId : null;
+}
+
+function saveColOrder(table) {
+	const id = _tableId(table);
+	if(!id) return;
+	const headerRow = table.tHead && table.tHead.rows[0];
+	if(!headerRow) return;
+	const order = Array.from(headerRow.cells).map(th => parseInt(th.dataset.colId, 10));
+	try { localStorage.setItem('atg_col_order_' + id, JSON.stringify(order)); } catch(e) {}
+}
+
+function saveSortState(table) {
+	if(_initializingTables) return;
+	const id = _tableId(table);
+	if(!id) return;
+	const colIdx = parseInt(table.getAttribute('data-sort-col'), 10);
+	const order  = table.getAttribute('data-sort-order') || 'asc';
+	const headerRow = table.tHead && table.tHead.rows[0];
+	if(!headerRow) return;
+	const th = headerRow.cells[colIdx];
+	const colId = th ? parseInt(th.dataset.colId, 10) : colIdx;
+	try { localStorage.setItem('atg_sort_' + id, JSON.stringify({colId, order})); } catch(e) {}
+}
+
+function _restoreColOrder(table, savedOrder) {
+	const headerRow = table.tHead && table.tHead.rows[0];
+	if(!headerRow) return;
+	const placed = new Set();
+	savedOrder.forEach((wantedId, dstPos) => {
+		const srcTh = Array.from(headerRow.cells).find(
+			th => parseInt(th.dataset.colId, 10) === wantedId && !placed.has(th)
+		);
+		if(!srcTh) return;
+		const srcIdx = Array.from(headerRow.cells).indexOf(srcTh);
+		const dstIdx = dstPos < headerRow.cells.length ? dstPos : headerRow.cells.length - 1;
+		if(srcIdx === dstIdx) { placed.add(srcTh); return; }
+		Array.from(table.rows).forEach(row => {
+			if(row.cells.length <= Math.max(srcIdx, dstIdx)) return;
+			const moved = row.cells[srcIdx];
+			const ref = row.cells[dstIdx];
+			if(srcIdx < dstIdx) row.insertBefore(moved, ref ? ref.nextSibling : null);
+			else row.insertBefore(moved, ref);
+		});
+		placed.add(srcTh);
+	});
+}
+
+function _applySort(table, th, order) {
+	// Force the desired direction then call sortTable
+	const colIndex = Array.from(th.parentElement.cells).indexOf(th);
+	// Preset state so sortTable's toggle logic lands on `order`
+	table.setAttribute('data-sort-col', colIndex === 0 ? -1 : 0); // make it differ
+	table.setAttribute('data-sort-order', order === 'asc' ? 'desc' : 'asc');
+	sortTable(th);
+}
+
+function _colDragStart(e) {
+	_dragSrcTh = this;
+	e.dataTransfer.effectAllowed = 'move';
+	e.dataTransfer.setData('text/plain', ''); // required by Firefox
+	this.classList.add('col-dragging');
+}
+
+function _colDragOver(e) {
+	if(!_dragSrcTh || _dragSrcTh === this) return;
+	e.preventDefault();
+	e.dataTransfer.dropEffect = 'move';
+}
+
+function _colDragEnter(e) {
+	if(!_dragSrcTh || _dragSrcTh === this) return;
+	// Clear previous drag-over highlight before setting the new one
+	document.querySelectorAll('th.col-drag-over').forEach(t => t.classList.remove('col-drag-over'));
+	this.classList.add('col-drag-over');
+}
+
+function _colDragLeave(e) {
+	// Only clear when leaving to something truly outside this th
+	if(!this.contains(e.relatedTarget)) {
+		this.classList.remove('col-drag-over');
+	}
+}
+
+function _colDrop(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	if(!_dragSrcTh || _dragSrcTh === this) return false;
+
+	const table = this.closest('table');
+	const srcIdx = Array.from(_dragSrcTh.parentElement.cells).indexOf(_dragSrcTh);
+	const dstIdx = Array.from(this.parentElement.cells).indexOf(this);
+
+	// Move the cell at srcIdx to dstIdx in every row (thead + tbody)
+	Array.from(table.rows).forEach(row => {
+		const cells = row.cells;
+		if(cells.length <= Math.max(srcIdx, dstIdx)) return;
+		const moved = cells[srcIdx];
+		if(srcIdx < dstIdx) {
+			row.insertBefore(moved, cells[dstIdx].nextSibling);
+		} else {
+			row.insertBefore(moved, cells[dstIdx]);
+		}
+	});
+
+	// Update data-sort-col so the next sort-click knows the active column's new position
+	const activeArrow = table.querySelector('thead .arrow.active');
+	if(activeArrow) {
+		const activeTh = activeArrow.closest('th');
+		const newIdx = Array.from(activeTh.parentElement.cells).indexOf(activeTh);
+		table.setAttribute('data-sort-col', newIdx);
+	}
+
+	saveColOrder(table);
+	return false;
+}
+
+function _colDragEnd(e) {
+	this.classList.remove('col-dragging');
+	document.querySelectorAll('th.col-drag-over').forEach(t => t.classList.remove('col-drag-over'));
+	_dragSrcTh = null;
+}
 
 // Initial display.
-// The table has been set up sorted in ascending order on the filename; reflect that in the GUI
+// The coverage table is pre-sorted ascending by filename from Perl; reflect that in the GUI.
+// The mutation and duplication tables are sorted by JS on load so the arrows always match data.
+// Saved column order and sort state are restored from localStorage when present.
 document.addEventListener("DOMContentLoaded", () => {
-	const table = document.querySelector("table");
-	if(!table) return;
+	_initializingTables = true;
 
-	const headers = table.tHead.rows[0].cells;
-	for(let i = 0; i < headers.length; i++) {
-		const arrow = headers[i].querySelector(".arrow");
-		if(!arrow) continue;
+	// Assign original column indices as data-col-id (must be done before any reordering)
+	document.querySelectorAll('table[data-table-id]').forEach(table => {
+		const headerRow = table.tHead && table.tHead.rows[0];
+		if(!headerRow) return;
+		Array.from(headerRow.cells).forEach((th, i) => { th.dataset.colId = i; });
+	});
 
-		if(i === 0) {
-			arrow.textContent = "▲";
-			arrow.classList.add("active");
-		} else {
-			arrow.textContent = "▲";
-			arrow.classList.remove("active");
+	// Restore saved column order, then sort state, for every identified table
+	document.querySelectorAll('table[data-table-id]').forEach(table => {
+		const id = _tableId(table);
+		// --- column order ---
+		let savedOrder = null;
+		try { savedOrder = JSON.parse(localStorage.getItem('atg_col_order_' + id)); } catch(e) {}
+		if(Array.isArray(savedOrder) && savedOrder.length) {
+			_restoreColOrder(table, savedOrder);
+		}
+
+		// --- sort state ---
+		let savedSort = null;
+		try { savedSort = JSON.parse(localStorage.getItem('atg_sort_' + id)); } catch(e) {}
+		if(savedSort && typeof savedSort.colId === 'number') {
+			const headerRow = table.tHead && table.tHead.rows[0];
+			const th = headerRow && Array.from(headerRow.cells).find(
+				c => parseInt(c.dataset.colId, 10) === savedSort.colId
+			);
+			if(th) {
+				_applySort(table, th, savedSort.order || 'asc');
+				return; // done with this table
+			}
+		}
+
+		// No saved sort — apply defaults
+		if(table.classList.contains('mut-table')) {
+			// Score% column (original col 5)
+			const headerRow = table.tHead && table.tHead.rows[0];
+			const th = headerRow && Array.from(headerRow.cells).find(
+				c => parseInt(c.dataset.colId, 10) === 5
+			);
+			if(th) _applySort(table, th, 'asc');
+		} else if(table.classList.contains('dup-table')) {
+			// File column (original col 0)
+			const headerRow = table.tHead && table.tHead.rows[0];
+			const th = headerRow && Array.from(headerRow.cells).find(
+				c => parseInt(c.dataset.colId, 10) === 0
+			);
+			if(th) _applySort(table, th, 'asc');
+		} else if(table.classList.contains('sortable-table') && !table.classList.contains('mut-table') && !table.classList.contains('dup-table')) {
+			// CPAN Testers: sort by Date (original col 0) ascending
+			const headerRow = table.tHead && table.tHead.rows[0];
+			const th = headerRow && Array.from(headerRow.cells).find(
+				c => parseInt(c.dataset.colId, 10) === 0
+			);
+			if(th) _applySort(table, th, 'asc');
+		}
+	});
+
+	// Coverage table: pre-sorted ascending by File (col 0) from Perl — just update arrows
+	const covTable = document.querySelector("table[data-table-id='coverage']");
+	if(covTable && covTable.tHead) {
+		const id = _tableId(covTable);
+		let savedSort = null;
+		try { savedSort = JSON.parse(localStorage.getItem('atg_sort_' + id)); } catch(e) {}
+		if(!savedSort) {
+			const headers = covTable.tHead.rows[0].cells;
+			for(let i = 0; i < headers.length; i++) {
+				const arrow = headers[i].querySelector(".arrow");
+				if(!arrow) continue;
+				arrow.textContent = "▲";
+				arrow.classList.toggle("active", i === 0);
+			}
 		}
 	}
+
+	_initializingTables = false;
+
+	// Wire up drag-to-reorder on every sortable column header
+	document.querySelectorAll('th.sortable').forEach(th => {
+		th.setAttribute('draggable', 'true');
+		th.title = (th.title ? th.title + ' · ' : '') + 'Drag to reorder columns';
+		th.addEventListener('dragstart',  _colDragStart);
+		th.addEventListener('dragover',   _colDragOver);
+		th.addEventListener('dragenter',  _colDragEnter);
+		th.addEventListener('dragleave',  _colDragLeave);
+		th.addEventListener('drop',       _colDrop);
+		th.addEventListener('dragend',    _colDragEnd);
+	});
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -464,32 +689,6 @@ function refresh(){
 <p><center>Use mouse wheel or pinch to zoom; drag to pan</center></p>
 <p>No issues active on <a href="https://rt.cpan.org/Public/Dist/Display.html?Name=Geo-Address-Parser-Country">RT</a></p>
 <h2>CPAN Testers Failures for Geo-Address-Parser-Country 0.04</h2>
-<h3>Failure Summary (all reports)</h3>
-<ul>
-<li><b>Perl 5.40.x</b>: 2 failures</li>
-<li><b>linux</b>: 4 failures</li>
-<li><b>5.40 / linux</b>: 2 failures</li>
-</ul>
-<h3>Likely Root Causes</h3>
-<table class="root-causes">
-<thead>
-<tr>
-	<th>Cause</th>
-	<th>Confidence</th>
-	<th>Evidence</th>
-</tr>
-</thead>
-<tbody>
-
-<tr class="low">
-	<td halign="center"><strong>Scattered failures (no clear version or OS pattern)</strong></td>
-	<td halign="center">Weak (40%)</td>
-	<td halign="center"><ul><li>Failures and passes both seen on 4 common Perl series</li><li>Possible causes: flaky tests, optional dependency differences, or CGI environment assumptions</li><li>Review test output from failing reports for specific error messages</li></ul></td>
-</tr>
-
-</tbody>
-</table>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	const toggleFail = document.getElementById('toggleFail');
@@ -526,11 +725,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	update();
 });
-document.addEventListener("DOMContentLoaded", () => {
-	const th = document.querySelector("table.sortable-table th");
-	if(th) sortTable(th, 0);
-});
 </script>
+
 
 <p><em>Showing one failure per OS/Perl combination.</em></p>
 <div style="margin-bottom: 0.5em;">
@@ -552,10 +748,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	</label>
 </div>
 
-<table class="sortable-table" data-sort-col="0" data-sort-order="asc">
+<table class="sortable-table" data-sort-col="0" data-sort-order="asc" data-table-id="cpan">
 <thead>
 <tr>
-	<th class="sortable" onclick="sortTable(this, 0)">
+	<th class="sortable" onclick="sortTable(this, 0)" data-sort-type="date">
 		<span class="label">Date</span> <span class="arrow">&#x25B2;</span>
 	</th>
 	<th class="sortable" onclick="sortTable(this, 1)">
@@ -571,22 +767,23 @@ document.addEventListener("DOMContentLoaded", () => {
 		<span class="label">New</span> <span class="arrow">&#x25B2;</span>
 	</th>
 	<th>Report</th>
+	<th>Repro</th>
 </tr>
 </thead>
 <tbody>
 
-<tr class="cpan-fail"><td>2026-05-07T12:33:00Z</td><td>linux</td><td>5.40.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/f265b90a-4a10-11f1-a025-82e0b058d69b" target="_blank">View</a></td></tr>
-<tr class="cpan-na"><td>2026-05-06T23:09:00Z</td><td>freebsd</td><td>5.8.9</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/9e5829ee-49a0-11f1-baaf-fa416e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-09T17:32:00Z</td><td>linux</td><td>5.38.2</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/0dcead10-4bcd-11f1-bdc4-bb036e8775ea" target="_blank">View</a></td></tr>
-<tr class="cpan-fail"><td>2026-05-08T05:46:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/4da2ea1e-4aa1-11f1-9fd8-a2d66d8775ea" target="_blank">View</a></td></tr>
 <tr class="cpan-fail"><td>2026-05-07T12:44:00Z</td><td>linux</td><td>5.28.0</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/8440ff96-4a12-11f1-86f1-855f51000db2" target="_blank">View</a></td></tr>
+				<td><a href="https://www.cpantesters.org/cpan/report/8440ff96-4a12-11f1-86f1-855f51000db2" target="_blank">View</a></td><td></td></tr>
 <tr class="cpan-fail"><td>2026-05-07T20:28:00Z</td><td>openbsd</td><td>5.36.1</td><td>Brian Blackmore</td><td></td>
-				<td><a href="https://www.cpantesters.org/cpan/report/569fcca2-4a53-11f1-be04-ac72a68bf03a" target="_blank">View</a></td></tr>
+				<td><a href="https://www.cpantesters.org/cpan/report/569fcca2-4a53-11f1-be04-ac72a68bf03a" target="_blank">View</a></td><td></td></tr>
+<tr class="cpan-fail"><td>2026-05-07T12:33:00Z</td><td>linux</td><td>5.40.3</td><td>Andreas J. K&ouml;nig (ANDK)</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/f265b90a-4a10-11f1-a025-82e0b058d69b" target="_blank">View</a></td><td></td></tr>
+<tr class="cpan-na"><td>2026-05-06T23:09:00Z</td><td>freebsd</td><td>5.8.9</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/9e5829ee-49a0-11f1-baaf-fa416e8775ea" target="_blank">View</a></td><td></td></tr>
+<tr class="cpan-fail"><td>2026-05-09T17:32:00Z</td><td>linux</td><td>5.38.2</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/0dcead10-4bcd-11f1-bdc4-bb036e8775ea" target="_blank">View</a></td><td></td></tr>
+<tr class="cpan-fail"><td>2026-05-08T05:46:00Z</td><td>linux</td><td>5.40.0</td><td>Slaven Rezi&#x107;</td><td></td>
+				<td><a href="https://www.cpantesters.org/cpan/report/4da2ea1e-4aa1-11f1-9fd8-a2d66d8775ea" target="_blank">View</a></td><td></td></tr>
 </tbody></table>
 <h2>Mutation Report</h2>
 <h3>Mutation Summary</h3>
@@ -599,16 +796,31 @@ document.addEventListener("DOMContentLoaded", () => {
 <li><b>Survived</b>: 
 0
 </li>
+<li><b>Duplication</b>: install <a href="https://metacpan.org/dist/Code-CutNPaste">Code::CutNPaste</a> to enable</li>
 </ul>
 <h3>Mutation Files</h3>
 
-<table border='1' cellpadding='5'>
+<table border='1' cellpadding='5' class="sortable-table mut-table" data-sort-col="5" data-sort-order="asc" data-table-id="mut">
 
-<tr><th>File</th><th>Total</th><th>Killed</th><th>Survivors</th><th>Skipped</th><th>Score%</th><th>Complexity</th><th title="TER1=Statement, TER2=Branch, TER3=LCSAJ Path">TER1 / TER2 / TER3</th></tr>
+<thead>
+<tr>
+<th class="sortable" onclick="sortTable(this, 0)"><span class="label">File</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 1)"><span class="label">Total</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 2)"><span class="label">Killed</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 3)"><span class="label">Survivors</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 4)"><span class="label">Skipped</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 5)"><span class="label">Score%</span> <span class="arrow active">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 6)"><span class="label">Complexity</span> <span class="arrow">&#x25B2;</span></th>
+<th class="sortable" onclick="sortTable(this, 7)" title="TER1=Statement, TER2=Branch, TER3=LCSAJ Path"><span class="label">TER1 / TER2 / TER3</span> <span class="arrow">&#x25B2;</span></th>
 
-<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/db2365e487fa166f32e1a748fc52dc5c3eba1b1a/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
-</table>
+</tr>
+</thead>
+<tbody>
 
+<tr class="high"><td><a href="mutation_html/lib/Geo/Address/Parser/Country.pm.html" title="View mutation line by line" target="_blank">lib/Geo/Address/Parser/Country.pm</a> <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/blob/30bfc24a4d64b9d0b3a18e0d3f89b6b27b6b4590/lib/Geo/Address/Parser/Country.pm" class="icon-link" title="View source on GitHub">&#128269;</a></td><td>9</td><td>9</td><td>0</td><td>0</td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span></td><td><span class="coverage-badge badge-good" title="Good">25</span></td><td><span class="coverage-badge badge-good" title="Excellent">100.0%</span> / <span class="coverage-badge badge-good" title="Excellent">97.1%</span> / <span class="coverage-badge badge-good" title="Excellent">100.0%</span></td></tr>
+</tbody></table>
+
+<p><em>Install <a href="https://metacpan.org/dist/Code-CutNPaste">Code::CutNPaste</a> to enable copy-paste duplication analysis (Dup% column).</em></p>
 <h2>Structural Coverage (Approximate)</h2>
 <div class='summary'>
 Statement Coverage: 100.00% (86 / 86)<br>
@@ -621,8 +833,8 @@ Tests execute 100.00% of the code and detect 100.00% of injected faults.
 </div>
 <footer>
 	<p>Project: <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country">Geo-Address-Parser-Country</a></p>
-	<p><em>Last updated: 2026-06-27 00:36:31 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/db2365e487fa166f32e1a748fc52dc5c3eba1b1a">commit <code>db2365e</code></a></em></p>
-	<p style="float: right; font-size: 0.85em; color: #999;">Powered by <a href="https://metacpan.org/dist/App-Test-Generator">App::Test::Generator 0.40</a></p>
+	<p><em>Last updated: 2026-08-27 12:26:09 - <a href="https://github.com/nigelhorne/Geo-Address-Parser-Country/commit/30bfc24a4d64b9d0b3a18e0d3f89b6b27b6b4590">commit <code>30bfc24</code></a></em></p>
+	<p style="float: right; font-size: 0.85em; color: #999;">Powered by <a href="https://metacpan.org/dist/App-Test-Generator">App::Test::Generator 0.46</a></p>
 </footer>
 </body>
 </html>
