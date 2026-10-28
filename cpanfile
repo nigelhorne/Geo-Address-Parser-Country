@@ -4,7 +4,7 @@ requires 'perl', '5.010';
 
 requires 'Carp';
 requires 'Locale::AU';
-requires 'Locale::CA', '0.09';
+requires 'Locale::CA', '0.09';   # minimum version with NU (Nunavut) support
 requires 'Locale::Object::Country';
 requires 'Locale::US';
 requires 'Object::Configure';
@@ -13,7 +13,7 @@ requires 'Params::Validate::Strict', '0.10';
 requires 'Return::Set';
 
 on 'configure' => sub {
-	requires 'ExtUtils::MakeMaker', '6.64';
+	requires 'ExtUtils::MakeMaker', '6.64';   # Minimum version for TEST_REQUIRES
 };
 
 on 'test' => sub {
